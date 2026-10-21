@@ -30,3 +30,8 @@ frontend/bundle-size.json
 
 # Local planning notes
 docs/superpowers/plans/
+
+# Temporary scratch, character cache, and verification screenshots
+.playwright-mcp/
+raw_chars_cache/
+/*.png

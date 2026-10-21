@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Novaryn — Acceleration Through Vision™</title>
+
+  <!-- Pre-paint motion class: prevents flash of unpositioned/unanimiated state -->
+  <script>
+    (function () {
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('motion-pending');
+      }
+    })();
+  </script>
+
+  <style>
+    @font-face {
+      font-family: "Novaryn Sans";
+      src: url("assets/novaryn-sans.ttf") format("truetype");
+      font-weight: 300 900;
+      font-display: block;
+    }
+
+    :root {
+      --u: min(100vw / 1280, 100svh / 800);
+      --bg: #f7f8f3;
+      --ink: #25251d;
+      --accent: #7b3cff;
+      --ease-settle: cubic-bezier(.16, 1, .3, 1);
+      --ease-reveal: cubic-bezier(.22, 1, .36, 1);
+      --ease-bar: cubic-bezier(.65, 0, .35, 1);
+      --ease-wash-in: cubic-bezier(.62, 0, .18, 1);
+      --ease-wash-out: cubic-bezier(.7, 0, .25, 1);
+    }
+
+    @supports not (height: 100svh) {
+      :root {
+        --u: min(100vw / 1280, 100vh / 800);
+      }
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: "Novaryn Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: geometricPrecision;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: inherit;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    #site-menu :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Top Editorial Band (Desktop: 345u tall) */
+    .top {
+      position: relative;
+      width: 100%;
+      height: calc(345 * var(--u));
+      flex-shrink: 0;
+      background: var(--bg);
+      z-index: 20;
+    }
+
+    /* 4u-wide vertical hairline at horizontal center */
+    .center-hairline {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: calc(4 * var(--u));
+      height: 100%;
+      transform: translateX(-50%);
+      background: linear-gradient(to right, #f5f6f1 0%, #f5f6f1 25%, #f3f4ef 25%, #f3f4ef 75%, #f5f6f1 75%, #f5f6f1 100%);
+      transform-origin: top center;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Logo: top-left, 20u from left, 21u from top, z-index 90 */
+    .brand-logo {
+      position: absolute;
+      left: calc(20 * var(--u));
+      top: calc(21 * var(--u));
+      display: inline-flex;
+      align-items: center;
+      gap: calc(10 * var(--u));
+      z-index: 90;
+      text-decoration: none;
+      color: var(--ink);
+    }
+
+    .brand-logo svg.mark {
+      width: calc(39 * var(--u));
+      height: calc(26 * var(--u));
+      fill: var(--ink);
+      flex-shrink: 0;
+    }
+
+    .brand-logo .wordmark {
+      font-size: calc(34.5 * var(--u));
+      font-weight: 350;
+      line-height: 1;
+      letter-spacing: -0.003em;
+      display: inline-flex;
+      align-items: flex-start;
+    }
+
+    .brand-logo .registered-star {
+      width: calc(6.4 * var(--u));
+      height: calc(6.4 * var(--u));
+      fill: var(--ink);
+      margin-left: calc(2 * var(--u));
+      transform: translateY(calc(-4 * var(--u)));
+      flex-shrink: 0;
+    }
+
+    /* Menu Button: top-right, 20u from right and top, height 35u, gap 16.5u */
+    .menu-trigger {
+      position: absolute;
+      right: calc(20 * var(--u));
+      top: calc(20 * var(--u));
+      height: calc(35 * var(--u));
+      display: inline-flex;
+      align-items: center;
+      gap: calc(16.5 * var(--u));
+      z-index: 90;
+      cursor: pointer;
+    }
+
+    .menu-label-stack {
+      position: relative;
+      height: calc(35 * var(--u));
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      font-size: calc(18 * var(--u));
+      font-weight: 350;
+    }
+
+    .menu-label-stack .label-text {
+      display: block;
+      transition: transform 800ms cubic-bezier(.65, 0, .2, 1);
+    }
+
+    .menu-label-stack .label-close {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      transform: translateY(100%);
+    }
+
+    .menu-icon-wrap {
+      position: relative;
+      width: calc(36 * var(--u));
+      height: calc(36 * var(--u));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-icon-wrap svg.dots-glyph {
+      width: 100%;
+      height: 100%;
+      fill: var(--ink);
+      transition: opacity 150ms ease;
+    }
+
+    .menu-icon-wrap .close-x {
+      position: absolute;
+      width: calc(22 * var(--u));
+      height: calc(22 * var(--u));
+      opacity: 0;
+      pointer-events: none;
+      transform: rotate(-90deg) scale(0.3);
+      transition: transform 900ms var(--ease-settle) 450ms, opacity 250ms ease 450ms;
+    }
+
+    .menu-icon-wrap .close-x::before,
+    .menu-icon-wrap .close-x::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--ink);
+    }
+
+    .menu-icon-wrap .close-x::before {
+      transform: rotate(45deg);
+    }
+
+    .menu-icon-wrap .close-x::after {
+      transform: rotate(-45deg);
+    }
+
+    /* Menu open trigger styles */
+    html.menu-open .menu-label-stack .label-menu {
+      transform: translateY(-100%);
+    }
+
+    html.menu-open .menu-label-stack .label-close {
+      transform: translateY(0);
+    }
+
+    html.menu-open .menu-icon-wrap svg.dots-glyph {
+      opacity: 0;
+    }
+
+    html.menu-open .menu-icon-wrap .close-x {
+      opacity: 1;
+      transform: rotate(0deg) scale(1);
+    }
+
+    /* Pill "See Further", right 20u, top 144.5u, height 41u, padding 4u 19.5u 0 20.8u */
+    .pill-see-further {
+      position: absolute;
+      right: calc(20 * var(--u));
+      top: calc(144.5 * var(--u));
+      height: calc(41 * var(--u));
+      padding: calc(4 * var(--u)) calc(19.5 * var(--u)) 0 calc(20.8 * var(--u));
+      background-color: #25251d;
+      color: #edefe8;
+      border-radius: 9999px;
+      font-weight: 350;
+      font-size: max(12px, calc(16.5 * var(--u)));
+      letter-spacing: -0.02em;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    /* Headline, left 20u, top 207.6u, size 62.14u, weight 450, letter-spacing -0.015em, line-height 60u, nowrap */
+    .headline-block {
+      position: absolute;
+      left: calc(20 * var(--u));
+      top: calc(207.6 * var(--u));
+      font-size: calc(62.14 * var(--u));
+      font-weight: 450;
+      letter-spacing: -0.015em;
+      line-height: calc(60 * var(--u));
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .headline-line {
+      display: block;
+      overflow: hidden;
+    }
+
+    .headline-line span {
+      display: inline-block;
+    }
+
+    .trademark {
+      font-size: 0.83em;
+      vertical-align: top;
+      margin-left: calc(2.1 * var(--u));
+      position: relative;
+      top: calc(-6.3 * var(--u));
+    }
+
+    /* Lead paragraph: right 20u, top 228u, width 520u, padding-left 21u, size max(13px, 20.5u), weight 400, letter-spacing 0.004em, line-height 1.3171 */
+    .lead-block {
+      position: absolute;
+      right: calc(20 * var(--u));
+      top: calc(228 * var(--u));
+      width: calc(520 * var(--u));
+      padding-left: calc(21 * var(--u));
+      font-size: max(13px, calc(20.5 * var(--u)));
+      font-weight: 400;
+      letter-spacing: 0.004em;
+      line-height: 1.3171;
+      border-left: max(1.5px, calc(2.4 * var(--u))) solid #1c1c1c;
+      z-index: 2;
+    }
+
+    .lead-block .lead-line {
+      white-space: nowrap;
+      display: block;
+    }
+
+    /* Layout wrapper: top editorial band + video stage */
+    .page-stage {
+      width: 100vw;
+      height: 100svh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    @supports not (height: 100svh) {
+      .page-stage {
+        height: 100vh;
+      }
+    }
+
+    /* Video stage: main.media, id research, flex 1, min-height 0, margin 0 20u, border-radius 5u 5u 0 0, overflow hidden, isolation isolate */
+    main.media {
+      flex: 1;
+      min-height: 0;
+      margin: 0 calc(20 * var(--u));
+      border-radius: calc(5 * var(--u)) calc(5 * var(--u)) 0 0;
+      overflow: hidden;
+      isolation: isolate;
+      position: relative;
+      background: radial-gradient(120% 90% at 52% 45%, #334a5f 0%, #142333 48%, #05090f 100%);
+    }
+
+    #hero {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 50% 45%;
+    }
+
+    /* News bar over the video, centered, bottom 30u, width 800u, min-height 56u, radius 2u, padding 8u 8u 8u 20u, background rgba(189,191,177,0.985), backdrop-filter blur(24px) saturate(1.1) */
+    .news-bar {
+      position: absolute;
+      bottom: calc(30 * var(--u));
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(800 * var(--u));
+      min-height: calc(56 * var(--u));
+      border-radius: calc(2 * var(--u));
+      padding: calc(8 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) calc(20 * var(--u));
+      background: rgba(189, 191, 177, 0.985);
+      backdrop-filter: blur(24px) saturate(1.1);
+      -webkit-backdrop-filter: blur(24px) saturate(1.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: calc(16 * var(--u));
+      z-index: 10;
+    }
+
+    .news-text {
+      color: #25251d;
+      font-weight: 350;
+      font-size: max(12px, calc(17.5 * var(--u)));
+      letter-spacing: -0.02em;
+      line-height: 1.25;
+    }
+
+    .news-pill {
+      flex-shrink: 0;
+      width: calc(118 * var(--u));
+      height: calc(40 * var(--u));
+      background-color: #25251d;
+      color: #d2d3c7;
+      border-radius: 9999px;
+      font-size: max(12px, calc(16.75 * var(--u)));
+      font-weight: 350;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      letter-spacing: -0.01em;
+    }
+
+    /* Pending motion pre-paint states */
+    html.motion-pending .center-hairline {
+      transform: translateX(-50%) scaleY(0);
+      opacity: 0;
+    }
+
+    html.motion-pending .brand-logo {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+
+    html.motion-pending .menu-trigger {
+      transform: translateY(-8px);
+      opacity: 0;
+    }
+
+    html.motion-pending .headline-line span {
+      transform: translateY(0.72em);
+      clip-path: inset(100% 0 0 0);
+      opacity: 0;
+    }
+
+    html.motion-pending .lead-block {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+
+    html.motion-pending .pill-see-further {
+      transform: translateY(10px) scale(0.985);
+      opacity: 0;
+    }
+
+    html.motion-pending .news-bar {
+      transform: translateX(-50%) translateY(10px) scale(0.96, 1);
+      opacity: 0;
+    }
+
+    /* =========================================================================
+       ORBIT MENU SYSTEM
+       ========================================================================= */
+    #site-menu {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 50;
+      pointer-events: none;
+      visibility: hidden;
+      clip-path: circle(0px at calc(100vw - 20 * var(--u) - 18 * var(--u)) calc(20 * var(--u) + 17.5 * var(--u)));
+      transition: clip-path 1s var(--ease-wash-out) 250ms, visibility 0s linear 1.3s;
+    }
+
+    html.menu-open #site-menu {
+      pointer-events: auto;
+      visibility: visible;
+      clip-path: circle(150vmax at calc(100vw - 20 * var(--u) - 18 * var(--u)) calc(20 * var(--u) + 17.5 * var(--u)));
+      transition: clip-path 1.2s var(--ease-wash-in) 0s;
+    }
+
+    .menu-wash {
+      position: absolute;
+      inset: 0;
+      background: rgba(247, 248, 243, 0.90);
+      backdrop-filter: blur(16px) saturate(0.9);
+      -webkit-backdrop-filter: blur(16px) saturate(0.9);
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Circular Orbit Stage */
+    .orbit-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Orbit Center Preview */
+    .orbit-preview-wrap {
+      position: absolute;
+      border-radius: 50%;
+      background: #e9eae3;
+      overflow: hidden;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      clip-path: circle(0% at 50% 50%);
+      transition: opacity 300ms ease, clip-path 700ms cubic-bezier(.16, 1, .3, 1);
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    html.menu-open .orbit-preview-wrap {
+      opacity: 1;
+      clip-path: circle(50% at 50% 50%);
+      transition-delay: 1.05s;
+    }
+
+    .orbit-preview-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 400ms ease;
+    }
+
+    .orbit-preview-img.active {
+      opacity: 1;
+    }
+
+    /* Orbit SVG Spokes & Nodes layer */
+    svg.orbit-svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 15;
+    }
+
+    .spoke-line-outer {
+      stroke: var(--ink);
+      stroke-opacity: 0.5;
+      stroke-width: 1;
+      transition: stroke 200ms, stroke-opacity 200ms;
+    }
+
+    .spoke-line-inner {
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      transition: stroke-dashoffset 300ms ease, stroke 200ms;
+    }
+
+    /* Orbit Dots */
+    .orbit-dot {
+      fill: var(--ink);
+      transition: r 250ms ease, fill 200ms ease, opacity 250ms ease;
+    }
+
+    .orbit-dot.center-node {
+      fill: var(--ink);
+      opacity: 1;
+      transition: r 400ms ease;
+    }
+
+    html.menu-settled .orbit-dot.center-node {
+      r: 0 !important;
+    }
+
+    /* Orbit Destination Links */
+    .orbit-link-item {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      z-index: 20;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: baseline;
+      gap: 6px;
+      opacity: 0;
+      filter: blur(8px);
+      transition: opacity 500ms ease, filter 500ms ease, transform 500ms ease, color 200ms ease;
+    }
+
+    html.menu-open .orbit-link-item {
+      opacity: 1;
+      filter: blur(0px);
+    }
+
+    .orbit-link-num {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+    }
+
+    .orbit-link-title {
+      font-weight: 350;
+      letter-spacing: -0.025em;
+      font-size: clamp(22px, 2.5vw, 40px);
+      line-height: 1;
+    }
+
+    /* Menu Lower-Left Caption */
+    .menu-caption-box {
+      position: absolute;
+      bottom: 40px;
+      left: calc(20 * var(--u));
+      z-index: 25;
+      opacity: 0;
+      transition: opacity 500ms ease 1.2s;
+    }
+
+    html.menu-open .menu-caption-box {
+      opacity: 1;
+    }
+
+    .caption-index {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #71716b;
+      margin-bottom: 4px;
+    }
+
+    .caption-note {
+      font-size: 12px;
+      color: var(--ink);
+      font-weight: 400;
+    }
+
+    /* Hover & Active States */
+    .orbit-canvas.has-hover .orbit-link-item:not(.is-hovered) {
+      opacity: 0.38 !important;
+    }
+
+    .orbit-canvas.has-hover .orbit-dot:not(.is-hovered) {
+      opacity: 0.38 !important;
+    }
+
+    .orbit-canvas.has-hover .spoke-line-outer:not(.is-hovered) {
+      stroke-opacity: 0.15;
+    }
+
+    .orbit-link-item.is-hovered {
+      color: var(--accent);
+    }
+
+    .orbit-dot.is-hovered {
+      fill: var(--accent) !important;
+      opacity: 1 !important;
+      transform-origin: center;
+    }
+
+    /* =========================================================================
+       RESPONSIVE BREAKPOINTS
+       Tablet: max-width 959.98px, or max-height 599.98px, or portrait
+       ========================================================================= */
+    @media (max-width: 959.98px), (max-height: 599.98px), (orientation: portrait) {
+      :root {
+        --u: clamp(0.85px, 100vw / 1280, 1px);
+        --gx: clamp(20px, 2.6vw, 28px);
+        --gc: clamp(40px, 6.5vw, 72px);
+      }
+
+      html, body {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: auto;
+        min-height: 100dvh;
+      }
+
+      .page-stage {
+        height: auto;
+        min-height: 100dvh;
+      }
+
+      html.menu-open {
+        overflow: hidden !important;
+      }
+
+      html.menu-open .top {
+        isolation: auto;
+      }
+
+      .center-hairline {
+        display: none;
+      }
+
+      .top {
+        position: relative;
+        height: auto;
+        min-height: 36svh;
+        padding: var(--gx);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        column-gap: var(--gc);
+        row-gap: 24px;
+        align-items: start;
+      }
+
+      .brand-logo {
+        position: static;
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .brand-logo svg.mark {
+        width: 32px;
+        height: 22px;
+      }
+
+      .brand-logo .wordmark {
+        font-size: 28px;
+      }
+
+      .menu-trigger {
+        position: static;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+      }
+
+      /* Hit area expansion for touch targets */
+      .brand-logo::after,
+      .menu-trigger::after,
+      .pill-see-further::after,
+      .news-pill::after {
+        content: "";
+        position: absolute;
+        inset: -6px;
+      }
+
+      .pill-see-further {
+        position: static;
+        grid-column: 2;
+        grid-row: 2;
+        justify-self: end;
+        height: 38px;
+        padding: 0 18px;
+        font-size: 15px;
+      }
+
+      .headline-block {
+        position: static;
+        grid-column: 1;
+        grid-row: 3;
+        font-size: clamp(34px, calc((50vw - var(--gx) - var(--gc) / 2) / 7.3 * 10), 96px);
+        line-height: 0.9655;
+        white-space: normal;
+      }
+
+      .trademark {
+        top: -0.3em;
+        margin-left: 2px;
+      }
+
+      .lead-block {
+        position: static;
+        grid-column: 2;
+        grid-row: 3;
+        width: 100%;
+        max-width: 30em;
+        padding-left: 16px;
+        border-left: 2px solid #1c1c1c;
+        font-size: clamp(16px, 0.55vw + 12px, 19px);
+        line-height: 1.42;
+      }
+
+      .lead-block .lead-line {
+        white-space: normal;
+        display: inline;
+      }
+
+      main.media {
+        margin: 0 var(--gx);
+        min-height: max(300px, 50svh);
+        flex: none;
+        height: 55svh;
+      }
+
+      .news-bar {
+        width: min(calc(800 * var(--u)), calc(100% - 2 * var(--gx)));
+        bottom: 20px;
+      }
+    }
+
+    /* Mobile Breakpoint: max-width 679.98px */
+    @media (max-width: 679.98px) {
+      :root {
+        --gx: 20px;
+      }
+
+      .top {
+        min-height: 44svh;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto auto;
+        row-gap: 18px;
+      }
+
+      .brand-logo {
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      .menu-trigger {
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      .headline-block {
+        grid-column: 1 / -1;
+        grid-row: 2;
+        font-size: clamp(32px, calc((100vw - 40px) / 7.3 * 10), 54px);
+      }
+
+      .lead-block {
+        grid-column: 1 / -1;
+        grid-row: 3;
+        font-size: 16.5px;
+        max-width: 32em;
+      }
+
+      .pill-see-further {
+        grid-column: 2;
+        grid-row: 4;
+        justify-self: end;
+      }
+
+      main.media {
+        min-height: max(300px, 46svh);
+        height: 48svh;
+      }
+
+      .news-bar {
+        inset: auto 12px 12px 12px;
+        width: auto;
+        transform: none;
+        padding: 10px 8px 10px 14px;
+        gap: 12px;
+        border-radius: 8px;
+      }
+
+      .news-text {
+        font-size: 13px;
+      }
+
+      /* Below 680px: radial orbit simplifies to left-stacked list */
+      .orbit-preview-wrap,
+      svg.orbit-svg,
+      .menu-caption-box {
+        display: none !important;
+      }
+
+      #site-menu {
+        clip-path: none !important;
+        opacity: 0;
+        transition: opacity 300ms ease;
+      }
+
+      html.menu-open #site-menu {
+        opacity: 1;
+      }
+
+      .orbit-canvas {
+        padding: 110px 24px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 18px;
+        position: relative;
+      }
+
+      .orbit-link-item {
+        position: static !important;
+        transform: none !important;
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+        opacity: 1 !important;
+        filter: none !important;
+      }
+
+      .orbit-link-title {
+        font-size: clamp(25px, 8vw, 34px);
+      }
+    }
+
+    /* prefers-reduced-motion: disable transitions and animations */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      html.motion-pending .center-hairline,
+      html.motion-pending .brand-logo,
+      html.motion-pending .menu-trigger,
+      html.motion-pending .headline-line span,
+      html.motion-pending .lead-block,
+      html.motion-pending .pill-see-further,
+      html.motion-pending .news-bar {
+        opacity: 1 !important;
+        transform: none !important;
+        clip-path: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-stage">
+    <!-- Top Editorial Band -->
+    <header class="top" id="top">
+      <!-- 4u vertical hairline -->
+      <div class="center-hairline" id="divider" aria-hidden="true"></div>
+
+      <!-- Logo top-left -->
+      <a href="#" class="brand-logo" id="logo" aria-label="Novaryn home">
+        <svg class="mark" viewBox="0 0 39 26" aria-hidden="true">
+          <path d="M0 26V0h6.9l18.2 17.2V0H32v26h-6.6L6.9 8.7V26Z"></path>
+          <path d="M34 20h5v6h-5Z"></path>
+        </svg>
+        <div class="wordmark">
+          Novaryn
+          <svg class="registered-star" viewBox="0 0 10 10" aria-label="Registered trademark">
+            <path d="M5 0 6.25 3.75 10 5 6.25 6.25 5 10 3.75 6.25 0 5 3.75 3.75Z"></path>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Menu Button top-right -->
+      <button class="menu-trigger" id="menu-btn" aria-label="Open navigation menu" aria-controls="site-menu" aria-expanded="false">
+        <div class="menu-label-stack">
+          <span class="label-text label-menu">Menu</span>
+          <span class="label-text label-close" aria-hidden="true">Close</span>
+        </div>
+        <div class="menu-icon-wrap" aria-hidden="true">
+          <svg class="dots-glyph" viewBox="-18 -18 36 36">
+            <!-- 9 dots: 8 around circle radius 15 at 45 deg intervals, r=2.3 + center dot r=2.45 -->
+            <circle cx="15" cy="0" r="2.3"></circle>
+            <circle cx="10.6066" cy="10.6066" r="2.3"></circle>
+            <circle cx="0" cy="15" r="2.3"></circle>
+            <circle cx="-10.6066" cy="10.6066" r="2.3"></circle>
+            <circle cx="-15" cy="0" r="2.3"></circle>
+            <circle cx="-10.6066" cy="-10.6066" r="2.3"></circle>
+            <circle cx="0" cy="-15" r="2.3"></circle>
+            <circle cx="10.6066" cy="-10.6066" r="2.3"></circle>
+            <circle cx="0" cy="0" r="2.45"></circle>
+          </svg>
+          <div class="close-x"></div>
+        </div>
+      </button>
+
+      <!-- Pill "See Further" -->
+      <a href="#contact" class="pill-see-further" id="contact">See Further</a>
+
+      <!-- Headline -->
+      <h1 class="headline-block" id="vision">
+        <span class="headline-line"><span id="hl-line-1">Acceleration</span></span>
+        <span class="headline-line"><span id="hl-line-2">Through Vision<span class="trademark">™</span></span></span>
+      </h1>
+
+      <!-- Lead paragraph -->
+      <p class="lead-block" id="systems">
+        <span class="lead-line">We imagine with pathfinders to discover frontiers</span>
+        <span class="lead-line">unfold worlds and shape technologies beyond physical</span>
+        <span class="lead-line">boundaries.</span>
+      </p>
+    </header>
+
+    <!-- Video Stage -->
+    <main class="media" id="research">
+      <video
+        id="hero"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="auto"
+        aria-label="Photonic lens focusing neural light into a violet beam"
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261005_183134_2d4380fd-64a0-459c-a1eb-add70a3e1a7b.mp4"
+      ></video>
+
+      <!-- News bar over video -->
+      <div class="news-bar" id="news">
+        <div class="news-text">
+          Novaryn presents the blueprint for the next era of AI infrastructure.
+        </div>
+        <a href="#" class="news-pill">View Next</a>
+      </div>
+    </main>
+  </div>
+
+  <!-- Orbit Menu Modal -->
+  <div id="site-menu" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+    <div class="menu-wash" id="menu-wash"></div>
+
+    <div class="orbit-canvas" id="orbit-canvas">
+      <!-- SVG for spokes and dots -->
+      <svg class="orbit-svg" id="orbit-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+
+      <!-- Center Preview Circle -->
+      <div class="orbit-preview-wrap" id="orbit-preview">
+        <img class="orbit-preview-img active" data-dest="0" src="assets/menu-about.webp" alt="About Novaryn">
+        <img class="orbit-preview-img" data-dest="1" src="assets/menu-vision.webp" alt="Vision">
+        <img class="orbit-preview-img" data-dest="2" src="assets/menu-systems.webp" alt="Systems">
+        <img class="orbit-preview-img" data-dest="3" src="assets/menu-research.webp" alt="Research">
+        <img class="orbit-preview-img" data-dest="4" src="assets/menu-journal.webp" alt="Journal">
+        <img class="orbit-preview-img" data-dest="5" src="assets/menu-contact.webp" alt="Contact">
+      </div>
+
+      <!-- Links (6 Destinations) -->
+      <a href="#top" class="orbit-link-item" data-index="0" data-note="Who we are" data-angle="315">
+        <span class="orbit-link-num">01</span>
+        <span class="orbit-link-title">About</span>
+      </a>
+      <a href="#vision" class="orbit-link-item" data-index="1" data-note="Why we exist" data-angle="45">
+        <span class="orbit-link-num">02</span>
+        <span class="orbit-link-title">Vision</span>
+      </a>
+      <a href="#systems" class="orbit-link-item" data-index="2" data-note="What we shape" data-angle="90">
+        <span class="orbit-link-num">03</span>
+        <span class="orbit-link-title">Systems</span>
+      </a>
+      <a href="#research" class="orbit-link-item" data-index="3" data-note="How we learn" data-angle="135">
+        <span class="orbit-link-num">04</span>
+        <span class="orbit-link-title">Research</span>
+      </a>
+      <a href="#research" class="orbit-link-item" data-index="4" data-note="Notes from the frontier" data-angle="225">
+        <span class="orbit-link-num">05</span>
+        <span class="orbit-link-title">Journal</span>
+      </a>
+      <a href="#contact" class="orbit-link-item" data-index="5" data-note="Begin together" data-angle="270">
+        <span class="orbit-link-num">06</span>
+        <span class="orbit-link-title">Contact</span>
+      </a>
+
+      <!-- Caption Lower-Left -->
+      <div class="menu-caption-box" id="menu-caption">
+        <div class="caption-index" id="caption-idx">Index / 06 destinations</div>
+        <div class="caption-note" id="caption-desc">Hover a point to preview</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inline Script 1: Reduced Motion Video Guard -->
+  <script>
+    (function () {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const video = document.getElementById('hero');
+
+      function checkMotion() {
+        if (prefersReduced.matches) {
+          video.removeAttribute('autoplay');
+          video.pause();
+        } else {
+          video.play().catch(() => {});
+        }
+      }
+
+      checkMotion();
+      prefersReduced.addEventListener('change', checkMotion);
+    })();
+  </script>
+
+  <!-- Inline Script 2: Entrance Timeline (Web Animations API) -->
+  <script>
+    (function () {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.remove('motion-pending');
+        return;
+      }
+
+      const elements = {
+        divider: document.getElementById('divider'),
+        logo: document.getElementById('logo'),
+        menuBtn: document.getElementById('menu-btn'),
+        line1: document.getElementById('hl-line-1'),
+        line2: document.getElementById('hl-line-2'),
+        lead: document.getElementById('systems'),
+        contact: document.getElementById('contact'),
+        news: document.getElementById('news')
+      };
+
+      const animations = [];
+
+      // divider 820ms delay 20ms, cubic-bezier(.65,0,.35,1), scaleY 0 to 1
+      if (elements.divider) {
+        animations.push(elements.divider.animate([
+          { transform: 'translateX(-50%) scaleY(0)', opacity: 0 },
+          { transform: 'translateX(-50%) scaleY(1)', opacity: 1 }
+        ], {
+          duration: 820,
+          delay: 20,
+          easing: 'cubic-bezier(.65, 0, .35, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // logo 560ms delay 90ms, cubic-bezier(.16,1,.3,1)
+      if (elements.logo) {
+        animations.push(elements.logo.animate([
+          { transform: 'translateY(-8px)', opacity: 0 },
+          { transform: 'translateY(0)', opacity: 1 }
+        ], {
+          duration: 560,
+          delay: 90,
+          easing: 'cubic-bezier(.16, 1, .3, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // menu 520ms delay 170ms, same settle easing
+      if (elements.menuBtn) {
+        animations.push(elements.menuBtn.animate([
+          { transform: 'translateY(-8px)', opacity: 0 },
+          { transform: 'translateY(0)', opacity: 1 }
+        ], {
+          duration: 520,
+          delay: 170,
+          easing: 'cubic-bezier(.16, 1, .3, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // "Acceleration" 790ms delay 250ms, cubic-bezier(.22,1,.36,1), clip-path reveal upward
+      if (elements.line1) {
+        animations.push(elements.line1.animate([
+          { transform: 'translateY(0.72em)', clipPath: 'inset(100% 0 0 0)', opacity: 0 },
+          { transform: 'translateY(0)', clipPath: 'inset(0% 0 0 0)', opacity: 1 }
+        ], {
+          duration: 790,
+          delay: 250,
+          easing: 'cubic-bezier(.22, 1, .36, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // "Through Vision™" 840ms delay 360ms, same reveal
+      if (elements.line2) {
+        animations.push(elements.line2.animate([
+          { transform: 'translateY(0.72em)', clipPath: 'inset(100% 0 0 0)', opacity: 0 },
+          { transform: 'translateY(0)', clipPath: 'inset(0% 0 0 0)', opacity: 1 }
+        ], {
+          duration: 840,
+          delay: 360,
+          easing: 'cubic-bezier(.22, 1, .36, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // lead 620ms delay 570ms, settle
+      if (elements.lead) {
+        animations.push(elements.lead.animate([
+          { transform: 'translateY(10px)', opacity: 0 },
+          { transform: 'translateY(0)', opacity: 1 }
+        ], {
+          duration: 620,
+          delay: 570,
+          easing: 'cubic-bezier(.16, 1, .3, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // See Further 520ms delay 730ms, from translateY(10px) scale(.985)
+      if (elements.contact) {
+        animations.push(elements.contact.animate([
+          { transform: 'translateY(10px) scale(0.985)', opacity: 0 },
+          { transform: 'translateY(0) scale(1)', opacity: 1 }
+        ], {
+          duration: 520,
+          delay: 730,
+          easing: 'cubic-bezier(.16, 1, .3, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // news 720ms delay 920ms, reveal easing, from translate 0 10px and scale .96 1
+      if (elements.news) {
+        animations.push(elements.news.animate([
+          { transform: 'translateX(-50%) translateY(10px) scale(0.96, 1)', opacity: 0 },
+          { transform: 'translateX(-50%) translateY(0) scale(1, 1)', opacity: 1 }
+        ], {
+          duration: 720,
+          delay: 920,
+          easing: 'cubic-bezier(.22, 1, .36, 1)',
+          fill: 'both'
+        }));
+      }
+
+      // Fallback cleanup at 3000ms
+      const fallbackTimer = setTimeout(finishEntrance, 3000);
+
+      Promise.all(animations.map(a => a.finished)).then(() => {
+        clearTimeout(fallbackTimer);
+        finishEntrance();
+      }).catch(() => {
+        finishEntrance();
+      });
+
+      function finishEntrance() {
+        document.documentElement.classList.remove('motion-pending');
+        animations.forEach(a => {
+          try { a.cancel(); } catch (e) {}
+        });
+      }
+    })();
+  </script>
+
+  <!-- Inline Script 3: Radial Orbit Menu Layout & Interactions -->
+  <script>
+    (function () {
+      const menuBtn = document.getElementById('menu-btn');
+      const siteMenu = document.getElementById('site-menu');
+      const wash = document.getElementById('menu-wash');
+      const orbitCanvas = document.getElementById('orbit-canvas');
+      const orbitSvg = document.getElementById('orbit-svg');
+      const orbitPreview = document.getElementById('orbit-preview');
+      const previewImages = document.querySelectorAll('.orbit-preview-img');
+      const linkItems = Array.from(document.querySelectorAll('.orbit-link-item'));
+      const captionIdx = document.getElementById('caption-idx');
+      const captionDesc = document.getElementById('caption-desc');
+      const logoLink = document.getElementById('logo');
+
+      let isOpen = false;
+      let settleTimer = null;
+
+      // Orbit angles for all items (destinations + non-link dots)
+      // 6 destinations: 01 About (315°), 02 Vision (45°), 03 Systems (90°), 04 Research (135°), 05 Journal (225°), 06 Contact (270°)
+      // Non-link dots: 0°, 180°, and center.
+      const dotAngles = [0, 45, 90, 135, 180, 225, 270, 315];
+
+      function computeOrbitGeometry() {
+        if (window.innerWidth <= 679.98) {
+          orbitSvg.innerHTML = '';
+          return;
+        }
+
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const cx = width * 0.5;
+        const cy = height * 0.5 + 18;
+
+        // Radius: max(110, min(20% of width, 37% of (height - 190)))
+        const radius = Math.max(110, Math.min(width * 0.20, (height - 190) * 0.37));
+
+        // Center preview diameter: 1.24 * orbit radius
+        const previewSize = radius * 1.24;
+        orbitPreview.style.width = previewSize + 'px';
+        orbitPreview.style.height = previewSize + 'px';
+        orbitPreview.style.left = cx + 'px';
+        orbitPreview.style.top = cy + 'px';
+
+        // Rebuild SVG spokes and dots
+        let svgContent = '';
+
+        // Non-link angles: 0, 180
+        // Destination links have angles: 315, 45, 90, 135, 225, 270
+        dotAngles.forEach(deg => {
+          const rad = (deg - 90) * (Math.PI / 180);
+          const x = cx + radius * Math.cos(rad);
+          const y = cy + radius * Math.sin(rad);
+
+          // Find if this angle corresponds to a destination
+          const destLink = linkItems.find(link => parseInt(link.dataset.angle, 10) === deg);
+          const isDest = Boolean(destLink);
+          const r = isDest ? 7 : 7; // idle dot radius 7px
+
+          // Outer spoke: from dot position extending outward 45px
+          const outerLen = 45;
+          const ox = cx + (radius + outerLen) * Math.cos(rad);
+          const oy = cy + (radius + outerLen) * Math.sin(rad);
+
+          svgContent += `
+            <g class="spoke-group" data-angle="${deg}">
+              <line class="spoke-line-outer" x1="${x}" y1="${y}" x2="${ox}" y2="${oy}" />
+              <line class="spoke-line-inner" x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" />
+              <circle class="orbit-dot ${isDest ? 'dest-dot' : 'nonlink-dot'}" data-angle="${deg}" cx="${x}" cy="${y}" r="${r}" />
+            </g>
+          `;
+        });
+
+        // Center dot radius 12px
+        svgContent += `<circle class="orbit-dot center-node" cx="${cx}" cy="${cy}" r="12" />`;
+        orbitSvg.innerHTML = svgContent;
+
+        // Position destination label links past the outer spoke
+        linkItems.forEach((link, idx) => {
+          const deg = parseInt(link.dataset.angle, 10);
+          const rad = (deg - 90) * (Math.PI / 180);
+          const labelDist = radius + 62;
+          const lx = cx + labelDist * Math.cos(rad);
+          const ly = cy + labelDist * Math.sin(rad);
+
+          link.style.left = lx + 'px';
+          link.style.top = ly + 'px';
+
+          // Staggered reveal: 0.95s + idx * 0.06s
+          link.style.transitionDelay = (0.95 + idx * 0.06) + 's';
+        });
+      }
+
+      function openMenu() {
+        if (isOpen) return;
+        isOpen = true;
+        document.documentElement.classList.add('menu-open');
+        menuBtn.setAttribute('aria-expanded', 'true');
+        menuBtn.setAttribute('aria-label', 'Close navigation menu');
+
+        computeOrbitGeometry();
+
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        settleTimer = setTimeout(() => {
+          document.documentElement.classList.add('menu-settled');
+        }, reduced ? 0 : 1700);
+      }
+
+      function closeMenu() {
+        if (!isOpen) return;
+        isOpen = false;
+        document.documentElement.classList.remove('menu-open', 'menu-settled');
+        menuBtn.setAttribute('aria-expanded', 'false');
+        menuBtn.setAttribute('aria-label', 'Open navigation menu');
+        clearTimeout(settleTimer);
+        resetHover();
+      }
+
+      function toggleMenu() {
+        if (isOpen) closeMenu();
+        else openMenu();
+      }
+
+      menuBtn.addEventListener('click', toggleMenu);
+      wash.addEventListener('click', closeMenu);
+      logoLink.addEventListener('click', (e) => {
+        if (isOpen) {
+          closeMenu();
+        }
+      });
+
+      // Destination Hover / Focus preview interactions
+      function handleItemHover(index, note, angle) {
+        orbitCanvas.classList.add('has-hover');
+
+        // Highlight label
+        linkItems.forEach(item => {
+          if (parseInt(item.dataset.index, 10) === index) {
+            item.classList.add('is-hovered');
+          } else {
+            item.classList.remove('is-hovered');
+          }
+        });
+
+        // Highlight dot & spokes
+        const spokeGroups = orbitSvg.querySelectorAll('.spoke-group');
+        spokeGroups.forEach(group => {
+          const gAngle = parseInt(group.dataset.angle, 10);
+          const dot = group.querySelector('.orbit-dot');
+          const outerLine = group.querySelector('.spoke-line-outer');
+          const innerLine = group.querySelector('.spoke-line-inner');
+
+          if (gAngle === angle) {
+            dot.classList.add('is-hovered');
+            dot.setAttribute('r', '14'); // active dot size 14px
+            outerLine.classList.add('is-hovered');
+            outerLine.style.stroke = 'var(--accent)';
+            outerLine.style.strokeOpacity = '1';
+            innerLine.classList.add('is-hovered');
+            innerLine.style.strokeDashoffset = '0';
+          } else {
+            dot.classList.remove('is-hovered');
+            dot.setAttribute('r', '7');
+            outerLine.classList.remove('is-hovered');
+            outerLine.style.stroke = '';
+            outerLine.style.strokeOpacity = '';
+            innerLine.classList.remove('is-hovered');
+            innerLine.style.strokeDashoffset = '200';
+          }
+        });
+
+        // Crossfade preview images
+        previewImages.forEach(img => {
+          if (parseInt(img.dataset.dest, 10) === index) {
+            img.classList.add('active');
+          } else {
+            img.classList.remove('active');
+          }
+        });
+
+        // Update lower-left caption
+        captionIdx.textContent = `Index / 0${index + 1} — 06`;
+        captionDesc.textContent = note;
+      }
+
+      function resetHover() {
+        orbitCanvas.classList.remove('has-hover');
+        linkItems.forEach(item => item.classList.remove('is-hovered'));
+
+        const dots = orbitSvg.querySelectorAll('.dest-dot');
+        dots.forEach(d => {
+          d.classList.remove('is-hovered');
+          d.setAttribute('r', '7');
+        });
+
+        const spokeGroups = orbitSvg.querySelectorAll('.spoke-group');
+        spokeGroups.forEach(g => {
+          const outer = g.querySelector('.spoke-line-outer');
+          const inner = g.querySelector('.spoke-line-inner');
+          if (outer) {
+            outer.classList.remove('is-hovered');
+            outer.style.stroke = '';
+            outer.style.strokeOpacity = '';
+          }
+          if (inner) {
+            inner.classList.remove('is-hovered');
+            inner.style.strokeDashoffset = '200';
+          }
+        });
+
+        previewImages.forEach((img, idx) => {
+          if (idx === 0) img.classList.add('active');
+          else img.classList.remove('active');
+        });
+
+        captionIdx.textContent = 'Index / 06 destinations';
+        captionDesc.textContent = 'Hover a point to preview';
+      }
+
+      linkItems.forEach(link => {
+        const idx = parseInt(link.dataset.index, 10);
+        const note = link.dataset.note;
+        const angle = parseInt(link.dataset.angle, 10);
+
+        link.addEventListener('mouseenter', () => handleItemHover(idx, note, angle));
+        link.addEventListener('focus', () => handleItemHover(idx, note, angle));
+        link.addEventListener('mouseleave', resetHover);
+        link.addEventListener('blur', resetHover);
+
+        link.addEventListener('click', () => {
+          closeMenu();
+        });
+      });
+
+      // Escape key to close
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen) {
+          closeMenu();
+        }
+      });
+
+      // Tab trap focus management
+      siteMenu.addEventListener('keydown', (e) => {
+        if (e.key !== 'Tab') return;
+        const focusable = [menuBtn, ...linkItems];
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      });
+
+      // Recompute orbit on resize
+      let resizeDebounce = null;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeDebounce);
+        resizeDebounce = setTimeout(() => {
+          if (isOpen) {
+            computeOrbitGeometry();
+          }
+        }, 60);
+      });
+
+      // Initial geometry calculation
+      computeOrbitGeometry();
+    })();
+  </script>
+
+</body>
+</html>
+

@@ -1,0 +1,279 @@
+/* ============================================================================
+   Top Executive Three-Dot Action Menu — Luxury Kombai Obsidian Aesthetic
+   ========================================================================== */
+
+.top-exec-wrapper {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 999;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  user-select: none;
+}
+
+/* Floating Three-Dot Trigger Button */
+.top-exec-trigger {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(13, 16, 23, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  backdrop-filter: blur(20px) saturate(190%);
+  -webkit-backdrop-filter: blur(20px) saturate(190%);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.55), 0 0 1px 1px rgba(255, 255, 255, 0.08);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.top-exec-trigger:hover,
+.top-exec-trigger.active {
+  transform: scale(1.06);
+  background: rgba(22, 27, 38, 0.92);
+  border-color: rgba(204, 255, 0, 0.5);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(204, 255, 0, 0.25);
+  color: #ccff00;
+}
+
+.top-exec-trigger:active {
+  transform: scale(0.96);
+}
+
+/* Ping notification dot on the button */
+.top-exec-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ff3b30;
+  box-shadow: 0 0 8px #ff3b30;
+}
+
+.top-exec-dot.active-workout {
+  background: #ccff00;
+  box-shadow: 0 0 8px #ccff00;
+  animation: execPulse 1.8s infinite ease-in-out;
+}
+
+@keyframes execPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.35); opacity: 0.6; }
+}
+
+/* Backdrop Dimmer (subtle overlay on open) */
+.top-exec-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: execFadeIn 0.18s ease-out forwards;
+}
+
+/* Dropdown Menu Panel */
+.top-exec-dropdown {
+  position: absolute;
+  top: 54px;
+  right: 0;
+  width: 280px;
+  background: rgba(13, 16, 23, 0.94);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 12px;
+  box-shadow: 0 24px 64px -10px rgba(0, 0, 0, 0.85),
+              0 0 1px 1px rgba(255, 255, 255, 0.08),
+              0 0 32px rgba(204, 255, 0, 0.08);
+  backdrop-filter: blur(32px) saturate(210%);
+  -webkit-backdrop-filter: blur(32px) saturate(210%);
+  animation: execSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: top right;
+  z-index: 1000;
+}
+
+@keyframes execSlideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes execFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Menu Brand Header */
+.top-exec-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 8px 10px;
+}
+
+.top-exec-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-exec-brand-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(204, 255, 0, 0.18) 0%, rgba(0, 242, 254, 0.08) 100%);
+  border: 1px solid rgba(204, 255, 0, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(204, 255, 0, 0.15);
+}
+
+.top-exec-brand-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.top-exec-brand-sub {
+  font-size: 10px;
+  color: #8e95a5;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.top-exec-streak {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 149, 0, 0.12);
+  border: 1px solid rgba(255, 149, 0, 0.32);
+  border-radius: 12px;
+  padding: 4px 8px;
+}
+
+.top-exec-streak-icon {
+  font-size: 12px;
+}
+
+.top-exec-streak-text {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ff9500;
+}
+
+/* Divider */
+.top-exec-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.09), transparent);
+  margin: 6px 0;
+}
+
+/* Menu Items List */
+.top-exec-items {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.top-exec-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 9px 12px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: #c4c9d4;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  text-align: left;
+}
+
+.top-exec-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.top-exec-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: #8e95a5;
+  transition: color 0.16s ease;
+}
+
+.top-exec-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.top-exec-item:hover .top-exec-item-icon {
+  color: #ccff00;
+}
+
+.top-exec-item.active {
+  background: rgba(204, 255, 0, 0.1);
+  border-color: rgba(204, 255, 0, 0.28);
+  color: #ccff00;
+}
+
+.top-exec-item.active .top-exec-item-icon {
+  color: #ccff00;
+}
+
+/* Special Start Workout Item */
+.top-exec-item.start-btn {
+  background: linear-gradient(135deg, rgba(204, 255, 0, 0.16) 0%, rgba(48, 209, 88, 0.12) 100%);
+  border: 1px solid rgba(204, 255, 0, 0.35);
+  color: #ffffff;
+  margin: 3px 0;
+}
+
+.top-exec-item.start-btn:hover {
+  background: linear-gradient(135deg, rgba(204, 255, 0, 0.26) 0%, rgba(48, 209, 88, 0.2) 100%);
+  border-color: #ccff00;
+  box-shadow: 0 0 16px rgba(204, 255, 0, 0.2);
+}
+
+.top-exec-item.start-btn .top-exec-item-icon {
+  color: #ccff00;
+}
+
+/* Badge / Shortcut in Menu */
+.top-exec-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #8e95a5;
+  letter-spacing: 0.04em;
+}
+
+.top-exec-badge.live {
+  background: rgba(204, 255, 0, 0.18);
+  color: #ccff00;
+}
+

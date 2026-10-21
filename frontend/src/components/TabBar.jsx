@@ -1,20 +1,24 @@
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useStore } from '../store/useStore.js'
-import { effectiveRoutineIds, effectiveRoutines } from '../lib/history.js'
+import { effectiveRoutineIds, effectiveRoutines, streakWeeks } from '../lib/history.js'
 import { todayISO } from '../lib/format.js'
 import { t } from '../lib/i18n.js'
 import Icon from './Icon.jsx'
 import Elapsed from './Elapsed.jsx'
 import { useConnectionTrouble } from './SyncBanner.jsx'
 
-// Module scope, not TabBar's render body. Declared inside it, `Tab` was a new function on every
-// render, so React saw a different component type each time and threw the button away and built a
-// fresh one — on a bar that is fixed on screen, and once a second for the whole of a rest. The
-// state it took with it is the DOM node itself: focus, the :active tint, any in-flight transition.
-function Tab({ active, icon, label, onClick, dot }) {
+function Tab({ active, icon, label, onClick, dot, shortcut }) {
   return (
     <button className={active ? 'on' : ''} onClick={onClick} aria-label={dot ? label + ', ' + t('Connection problem') : undefined}>
-      <span className="tab-ic"><Icon name={icon} />{dot && <span className="tab-dot" aria-hidden="true" />}</span><span>{label}</span>
+      <span className="tab-ic">
+        <Icon name={icon} />
+        {dot && <span className="tab-dot" aria-hidden="true" />}
+      </span>
+      <span className="tab-lbl">{label}</span>
+      <span className="desktop-tooltip">
+        <span>{label}</span>
+        {shortcut && <span className="shortcut-pill">{shortcut}</span>}
+      </span>
     </button>
   )
 }
@@ -25,18 +29,16 @@ export default function TabBar({ onStart }) {
   const S = useStore(s => s.S)
   const user = useStore(s => s.user)
   const isGuest = useStore(s => s.isGuest())
-  // With the connection banner switched off, a sync problem shows as a dot on Home, the tab
-  // Settings lives under (#369, #330).
   const trouble = useConnectionTrouble()
   if (!user && !isGuest) return null
   const cur = loc.pathname.split('/')[1] || 'home'
   const on = k => cur === k || (cur === 'history' && k === 'stats') || (cur === 'settings' && k === 'home') || (cur === 'muscles' && k === 'library') || (cur === 'structural-balance' && k === 'stats')
 
   const running = !!S.active && cur !== 'workout' && !S.active.editingWorkoutId && !S.active.backfill && S.active.start > 0
+  const streak = streakWeeks(S)
+
   const startWorkout = () => {
     if (!S.active) {
-      // A weekday can hold several routines; start the combined session if any of them has
-      // exercises, otherwise fall through to the picker.
       if (effectiveRoutines(S, todayISO()).some(r => r.ex.length)) { onStart(effectiveRoutineIds(S, todayISO())); return }
     }
     nav('/workout')
@@ -44,23 +46,55 @@ export default function TabBar({ onStart }) {
 
   return (
     <nav id="tabbar">
-      <Tab active={on('home')} icon="house" label={t('Home')} dot={trouble} onClick={() => nav('/home')} />
-      <Tab active={on('plan')} icon="calendar" label={t('Plan')} onClick={() => nav('/plan')} />
-      {/* On the workout screen itself there is nothing to resume, so the button reads as the
-          tab it is and stays lit (#29); anywhere else it brings you back to the exercise you
-          were on — the marker is kept in S.active.cur and never moves on its own (#21). The
-          glyph is always play: start and resume are one concept, and an exercise is a dumbbell.
-          A live session you stepped away from shows its running time instead of a word, the
-          button still named Resume; a past workout being edited or logged after the fact has no
-          clock to run. */}
-      <button className={'start' + (S.active ? ' rec' : '') + (S.active && cur === 'workout' ? ' on' : '')} onClick={startWorkout}
-        aria-label={running ? t('Resume') : undefined}>
-        <span className="cir"><Icon name="play" /></span>
-        {running ? <span className="tab-time"><Elapsed start={S.active.start} /></span>
-          : <span>{S.active ? (cur === 'workout' ? t('Workout') : S.active.editingWorkoutId ? t('Edit workout') : t('Resume')) : t('Start')}</span>}
-      </button>
-      <Tab active={on('stats')} icon="chart" label={t('Stats')} onClick={() => nav('/stats')} />
-      <Tab active={on('library')} icon="dumbbell" label={t('Exercises')} onClick={() => nav('/library')} />
+      {/* Desktop Brand Header */}
+      <div className="desktop-nav-brand" onClick={() => nav('/home')} title="openGym Executive Suite">
+        <div className="brand-logo-mark">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M6 5v14M18 5v14M3 8h3M18 8h3M3 16h3M18 16h3M6 12h12" />
+          </svg>
+        </div>
+        <span className="desktop-tooltip">
+          <span>openGym Pro</span>
+          <span className="shortcut-pill">v1.4</span>
+        </span>
+      </div>
+
+      {/* Main Nav Action Group */}
+      <div className="nav-items-group">
+        <Tab active={on('home')} icon="house" label={t('Home')} shortcut="⌘1" dot={trouble} onClick={() => nav('/home')} />
+        <Tab active={on('plan')} icon="calendar" label={t('Plan')} shortcut="⌘2" onClick={() => nav('/plan')} />
+        <button className={'start' + (S.active ? ' rec' : '') + (S.active && cur === 'workout' ? ' on' : '')} onClick={startWorkout}
+          aria-label={running ? t('Resume') : undefined}>
+          <span className="cir"><Icon name="play" /></span>
+          {running ? <span className="tab-time"><Elapsed start={S.active.start} /></span>
+            : <span className="tab-lbl">{S.active ? (cur === 'workout' ? t('Workout') : S.active.editingWorkoutId ? t('Edit workout') : t('Resume')) : t('Start')}</span>}
+          <span className="desktop-tooltip">
+            <span>{S.active ? 'Resume Session' : 'Quick Workout'}</span>
+            <span className="shortcut-pill">Space</span>
+          </span>
+        </button>
+        <Tab active={on('stats')} icon="chart" label={t('Stats')} shortcut="⌘3" onClick={() => nav('/stats')} />
+        <Tab active={on('library')} icon="dumbbell" label={t('Exercises')} shortcut="⌘4" onClick={() => nav('/library')} />
+      </div>
+
+      {/* Desktop Utility Footer */}
+      <div className="desktop-nav-footer">
+        {streak > 0 && (
+          <div className="desktop-streak-badge" title={`${streak} Week Streak!`}>
+            <span className="streak-icon">🔥</span>
+            <span className="streak-num">{streak}</span>
+          </div>
+        )}
+        <button className="desktop-util-btn" onClick={() => nav('/settings')} aria-label={t('Settings')}>
+          <Icon name="gear" />
+          {trouble && <span className="tab-dot" aria-hidden="true" />}
+          <span className="desktop-tooltip">
+            <span>{t('Settings')}</span>
+            <span className="shortcut-pill">⌘,</span>
+          </span>
+        </button>
+      </div>
     </nav>
   )
 }
+

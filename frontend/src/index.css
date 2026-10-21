@@ -19,20 +19,20 @@
 /* ---------------------------------------------------------------- tokens -- */
 :root {
   /* surfaces — dark is the default */
-  --bg:        #000000;
-  --bg-el:     #0e0e10;   /* elevated backdrop (sheets, bars) */
-  --surface:   #1c1c1e;   /* card / grouped-list fill */
-  --surface-2: #2c2c2e;   /* pressed + nested fill */
-  --surface-3: #3a3a3c;   /* controls (segmented track, switch off) */
+  --bg:        #0A1A32;
+  --bg-el:     #09071D;   /* elevated backdrop (sheets, bars) */
+  --surface:   #09071D;   /* card / grouped-list fill */
+  --surface-2: #1B415D;   /* pressed + nested fill */
+  --surface-3: #456D8B;   /* controls (segmented track, switch off) */
 
   /* text */
-  --label:     #ffffff;
-  --label-2:   rgba(235,235,245,.60);
-  --label-3:   rgba(235,235,245,.32);
+  --label:     #E8EFF5;
+  --label-2:   rgba(232,239,245,.65);
+  --label-3:   rgba(232,239,245,.40);
   --label-4:   rgba(235,235,245,.18);
 
   /* lines */
-  --sep:       rgba(84,84,88,.60);
+  --sep:       rgba(69,109,139,.35);
   --sep-op:    rgba(84,84,88,.34);   /* for edges sitting over blur */
   --hair:      .5px;
 
@@ -167,6 +167,9 @@ button,.chip,.tile,.item,.wday,.cal-d,.swatch,.hm-c,.lrow,.seg button,.stp butto
 #app{
   padding:calc(var(--sat) + var(--conn) + 8px) var(--pad) calc(88px + var(--sab));
   max-width:560px;margin:0 auto;
+}
+.hero-section-wrapper{
+  margin-top:calc(-1 * (var(--sat) + var(--conn) + 8px));
 }
 /* Android 15 with the keyboard up: room to scroll the last field on a page above the keys.
    The tab bar stays where it is, under the keyboard, rather than riding up on it. */
@@ -1906,6 +1909,9 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
 .cols{display:block}
 @media (min-width:1000px){
   #app{max-width:1080px;padding-top:calc(var(--conn) + 32px);padding-bottom:calc(128px + var(--sab))}
+  .hero-section-wrapper{
+    margin-top:calc(-1 * (var(--conn) + 32px));
+  }
   .conn-row{max-width:640px}   /* the width of the .narrow pages below it */
   body.resting #app{padding-bottom:calc(220px + var(--sab))}
   body.no-tabbar #app{padding-bottom:calc(40px + var(--sab))}
@@ -2135,3 +2141,43 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
 [dir="rtl"] *{letter-spacing:0}
 .exfix-link{display:inline-flex;align-items:center;gap:5px;margin:14px 0 4px;color:var(--label-3);text-decoration:none}
 .list .similar-label{margin:16px 2px 6px;grid-column:1/-1}
+
+
+/* ============================================================================
+   UNIQ French Blue System: Custom Cursor, Selection & Scrollbars
+   Palette: #09071D, #0A1A32, #1B415D, #456D8B, #E8EFF5
+   ========================================================================== */
+
+::selection {
+  background: #1B415D !important;
+  color: #E8EFF5 !important;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #456D8B;
+  border-radius: 9999px;
+  border: 2px solid #0A1A32;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E8EFF5;
+}
+
+/* Precision UNIQ Custom Pointer & Caret */
+html, body {
+  caret-color: #E8EFF5;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M3 3l7 18 3-7 7-3z' fill='%231B415D' stroke='%23E8EFF5' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E"), auto;
+}
+
+a, button, input[type='button'], input[type='submit'], [role='button'], .clickable {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M10 2v10l-2-2-2 2 5 7 5-7-2-2-2 2V2z' fill='%23456D8B' stroke='%23E8EFF5' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), pointer !important;
+}

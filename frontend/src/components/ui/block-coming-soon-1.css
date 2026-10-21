@@ -1,0 +1,342 @@
+/* ============================================================================
+   Coming Soon 1 Component Styles
+   Tailwind / Shadcn Hybrid with High-Energy Sports Aesthetic
+   ========================================================================== */
+
+.coming-soon-showcase-section {
+  position: relative;
+  width: 100%;
+  min-height: 580px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(14, 16, 22, 0.95) 0%, rgba(8, 9, 12, 0.98) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 48px 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
+.coming-soon-showcase-section::before {
+  content: "";
+  position: absolute;
+  top: -100px;
+  left: 20%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(204, 255, 0, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.showcase-container {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 36px;
+  align-items: center;
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+/* Left Column */
+.showcase-left-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  text-align: left;
+}
+
+.badge-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(204, 255, 0, 0.1);
+  border: 1px solid rgba(204, 255, 0, 0.3);
+  width: fit-content;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ccff00;
+  box-shadow: 0 0 10px #ccff00;
+  animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.badge-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #ccff00;
+  margin: 0;
+}
+
+.showcase-heading {
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0;
+}
+
+.accent-glow-text {
+  background: linear-gradient(90deg, #ccff00 0%, #00f2fe 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.showcase-lead-p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #94a3b8;
+  max-width: 480px;
+  margin: 0;
+}
+
+/* Feature Action Capsules */
+.feature-action-capsules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 6px 0;
+}
+
+.action-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-capsule:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.action-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.text-lime { color: #ccff00; }
+.text-cyan { color: #00f2fe; }
+.text-orange { color: #ff5500; }
+
+/* Notify Form */
+.notify-form-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 420px;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .notify-form-wrapper {
+    flex-direction: row;
+  }
+}
+
+.notify-input {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border-radius: 12px;
+  height: 42px;
+}
+
+.notify-input:focus {
+  border-color: #ccff00;
+  box-shadow: 0 0 0 2px rgba(204, 255, 0, 0.2);
+}
+
+.notify-btn {
+  background: #ccff00;
+  color: #000000;
+  font-weight: 800;
+  border-radius: 12px;
+  height: 42px;
+  padding: 0 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s ease, background-color 0.15s;
+}
+
+.notify-btn:hover {
+  background: #b5e600;
+  transform: translateY(-1px);
+}
+
+.notify-bell-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.subscribed-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #ccff00;
+}
+
+/* Bottom Cluster */
+.bottom-social-cluster {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.cluster-btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.cluster-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}
+
+/* Right Column: Infinite Dual Stream Rails */
+.showcase-right-col {
+  display: flex;
+  justify-content: center;
+  height: 460px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Fade gradients on top and bottom of rails */
+.showcase-right-col::before,
+.showcase-right-col::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.showcase-right-col::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(8, 9, 12, 1) 0%, transparent 100%);
+}
+
+.showcase-right-col::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(8, 9, 12, 1) 0%, transparent 100%);
+}
+
+.infinite-rails-container {
+  display: flex;
+  gap: 16px;
+  height: 100%;
+}
+
+.rail-track {
+  width: 160px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+@media (min-width: 640px) {
+  .rail-track {
+    width: 190px;
+  }
+}
+
+.rail-inner-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stream-card {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #1e293b;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  aspect-ratio: 4 / 5;
+}
+
+.stream-card:hover {
+  transform: scale(1.03);
+}
+
+.stream-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.stream-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 12px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+.stream-tag {
+  font-size: 11px;
+  font-weight: 800;
+  color: #ccff00;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stream-sub {
+  font-size: 10px;
+  color: #ffffff;
+  opacity: 0.85;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .showcase-container {
+    grid-template-columns: 1fr;
+  }
+
+  .showcase-right-col {
+    height: 380px;
+  }
+}
+

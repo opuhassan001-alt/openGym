@@ -1,0 +1,87 @@
+/* ============================================================================
+   @unlumen-ui/blob-card — Production Grade Stylings
+   Animated card with fluid blob header, rotating glow border, and crisp typography
+   ========================================================================== */
+
+.blob-card-wrapper {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  isolation: isolate;
+}
+
+/* 1.5px Animated Glow Border Track */
+.blob-card-glow-track {
+  position: absolute;
+  top: -1.5px;
+  right: -1.5px;
+  bottom: -1.5px;
+  left: -1.5px;
+  border-radius: 25.5px;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Main Inner Surface */
+.blob-card-inner {
+  position: relative;
+  z-index: 10;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #09071D;
+  border: 1px solid rgba(69, 109, 139, 0.28);
+  box-shadow: 0 20px 45px -10px rgba(9, 7, 29, 0.6), 0 0 20px rgba(27, 65, 93, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.blob-card-wrapper:hover .blob-card-inner {
+  box-shadow: 0 25px 50px -8px rgba(9, 7, 29, 0.75), 0 0 28px rgba(69, 109, 139, 0.25);
+}
+
+/* Animated Fluid Blobs Header */
+.blob-card-header-surface {
+  position: relative;
+  overflow: hidden;
+  border-top-left-radius: 24px;
+  border-top-right-radius: 24px;
+  min-height: 180px;
+}
+
+/* Bottom fade from transparent into the card's background */
+.blob-card-header-fade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(9, 7, 29, 0) 0%,
+    rgba(9, 7, 29, 0.25) 40%,
+    rgba(9, 7, 29, 0.85) 80%,
+    #09071D 100%
+  );
+  pointer-events: none;
+}
+
+/* Header Slot Content */
+.blob-card-header-content {
+  position: relative;
+  z-index: 10;
+  padding: 32px 32px 10px;
+}
+
+/* Body Slot Content */
+.blob-card-body {
+  position: relative;
+  z-index: 10;
+  padding: 0 32px 32px;
+}
+
+@media (max-width: 640px) {
+  .blob-card-header-content {
+    padding: 24px 20px 8px;
+  }
+  .blob-card-body {
+    padding: 0 20px 24px;
+  }
+}
+

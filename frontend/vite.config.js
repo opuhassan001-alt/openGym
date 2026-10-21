@@ -103,6 +103,11 @@ const appVersion = process.env.APP_BUILD ? `${pkgVersion}+${process.env.APP_BUIL
 export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(appVersion) },
   plugins: [react(), umami, flavor, swStamp, catalogueMedia],
+  resolve: {
+    alias: {
+      '@': resolve(fileURLToPath(new URL('.', import.meta.url)), './src')
+    }
+  },
   base: './',
   server: {
     // The Coach's core (payload, validator, prompts, HTTP adapters) lives in ../api/coach/core
