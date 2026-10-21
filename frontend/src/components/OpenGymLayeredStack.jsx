@@ -19,29 +19,29 @@ import "./OpenGymLayeredStack.css";
 const FEATURES = [
   {
     id: "muscle-map",
-    badge: "01 · ANATOMY",
-    status: "1:1 ISOLATION",
+    badge: "ANATOMY",
+    status: "BIOMECHANICS",
     title: "3D Muscle Kinetics",
-    desc: "Targeted biomechanics, fatigue heatmaps & zero-glitch kinetic tracking across 14 muscle groups.",
-    chip: "360° Anterior & Posterior",
+    desc: "Targeted biomechanics, fatigue heatmaps, and kinetic tracking across 14 major muscle groups.",
+    chip: "Anterior & Posterior",
     icon: Activity,
     image: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&q=80&w=800",
     action: "Explore Anatomy",
   },
   {
     id: "ai-generator",
-    badge: "02 · AI SYNTH",
-    status: "ACTIVE SYNTH",
-    title: "AI Workout Generator",
-    desc: "Autonomous periodized workout synthesis dynamically calibrated to live fatigue and equipment.",
-    chip: "Sub-3s Neural Periodization",
+    badge: "PROGRAMMING",
+    status: "CUSTOM SPLIT",
+    title: "Workout Generator",
+    desc: "Periodized workout sessions calibrated to your training history, recovery state, and gym gear.",
+    chip: "Targeted Volume & Splits",
     icon: Cpu,
     image: "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&q=80&w=800",
     action: "Generate Circuit",
   },
   {
     id: "plate-math",
-    badge: "03 · STRENGTH",
+    badge: "BARBELL",
     status: "OLYMPIC 20KG",
     title: "Olympic Plate Math",
     desc: "Collar-to-collar barbell loading breakdown and automated 1RM pyramid progression calculator.",
@@ -52,7 +52,7 @@ const FEATURES = [
   },
   {
     id: "interval-timer",
-    badge: "04 · PROTOCOL",
+    badge: "PROTOCOLS",
     status: "AUDIO CUES",
     title: "Interval Timer Suite",
     desc: "High-precision Tabata (20/10), EMOM, and AMRAP training protocols with custom acoustic cues.",
@@ -63,10 +63,10 @@ const FEATURES = [
   },
   {
     id: "macro-fuel",
-    badge: "05 · METABOLIC",
-    status: "MACRO SPLIT",
+    badge: "NUTRITION",
+    status: "METABOLIC",
     title: "Macro & Fuel Matrix",
-    desc: "Dynamic caloric, protein, and hydration allocation mathematically synchronized with workout volume.",
+    desc: "Targeted caloric, protein, and hydration allocation balanced against daily training volume.",
     chip: "2,450 kcal · 175g P · 3L H2O",
     icon: Flame,
     image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80&w=800",
@@ -74,19 +74,19 @@ const FEATURES = [
   },
   {
     id: "turnstile-pass",
-    badge: "06 · ACCESS",
-    status: "24/7 SENSOR",
-    title: "Live Turnstile QR Pass",
-    desc: "Sub-millisecond turnstile access badge and real-time gym floor crowd density telemetry.",
-    chip: "Offline Instant Auth",
+    badge: "ACCESS",
+    status: "24/7 PASS",
+    title: "Turnstile QR Pass",
+    desc: "Digital gym entry badge and real-time training facility floor capacity telemetry.",
+    chip: "Instant Mobile Auth",
     icon: QrCode,
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&q=80&w=800",
     action: "Display QR",
   },
   {
     id: "leaderboard",
-    badge: "07 · COMMUNITY",
-    status: "GLOBAL ELO",
+    badge: "COMMUNITY",
+    status: "RANKINGS",
     title: "Athlete Arena Ranks",
     desc: "Branch leaderboards, verified volume streaks, and 8 prestigious athlete tier trophies.",
     chip: "City Rank #4 · Diamond Tier",
@@ -96,11 +96,11 @@ const FEATURES = [
   },
   {
     id: "instant-pass",
-    badge: "08 · PASS",
-    status: "ZERO HIDDEN FEES",
-    title: "Instant Membership",
+    badge: "MEMBERSHIP",
+    status: "TRANSPARENT",
+    title: "Training Passes",
     desc: "Transparent zero-commitment athletic passes with instant digital activation & guest access.",
-    chip: "Instant Mobile Checkout",
+    chip: "Instant Activation",
     icon: ShieldCheck,
     image: "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=80&w=800",
     action: "Activate Pass",
@@ -164,7 +164,7 @@ export default function OpenGymLayeredStack({
         <div className="og-ls-header">
           <div className="og-ls-tag">
             <span className="og-ls-tag-dot" />
-            <span>Interactive Layered Stack · 8 Core Engines</span>
+            <span>Training Suite · 8 Core Engines</span>
           </div>
           
           <h2 className="og-ls-title">
@@ -172,7 +172,7 @@ export default function OpenGymLayeredStack({
           </h2>
 
           <p className="og-ls-subtitle">
-            Experience our 8 high-performance training engines. Hover your cursor over the stack to fan out the complete operational deck, or select any engine to launch instantly.
+            Explore our 8 athletic training engines. Hover your cursor over the stack to fan out the deck, or select any engine to launch.
           </p>
 
           <div className="og-ls-controls">

@@ -2149,8 +2149,8 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
    ========================================================================== */
 
 ::selection {
-  background: #1B415D !important;
-  color: #E8EFF5 !important;
+  background: #086972 !important;
+  color: #A7FF84 !important;
 }
 
 ::-webkit-scrollbar {
@@ -2163,21 +2163,21 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #456D8B;
+  background: #16B978;
   border-radius: 9999px;
-  border: 2px solid #0A1A32;
+  border: 2px solid #071A52;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E8EFF5;
+  background: #A7FF84;
 }
 
 /* Precision UNIQ Custom Pointer & Caret */
 html, body {
-  caret-color: #E8EFF5;
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M3 3l7 18 3-7 7-3z' fill='%231B415D' stroke='%23E8EFF5' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E"), auto;
+  caret-color: #A7FF84;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M3 3l7 18 3-7 7-3z' fill='%23086972' stroke='%23A7FF84' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E"), auto;
 }
 
 a, button, input[type='button'], input[type='submit'], [role='button'], .clickable {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M10 2v10l-2-2-2 2 5 7 5-7-2-2-2 2V2z' fill='%23456D8B' stroke='%23E8EFF5' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), pointer !important;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='22' viewBox='0 0 24 24'%3E%3Cpath d='M10 2v10l-2-2-2 2 5 7 5-7-2-2-2 2V2z' fill='%2316B978' stroke='%23A7FF84' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E"), pointer !important;
 }

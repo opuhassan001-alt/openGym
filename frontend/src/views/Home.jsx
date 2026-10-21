@@ -33,7 +33,7 @@ export default function Home() {
   const bw = lastBW(S)
 
   return (
-    <div style={{ background: '#0A1A32', minHeight: '100vh', width: '100%', overflowX: 'clip' }}>
+    <div style={{ background: '#071A52', minHeight: '100vh', width: '100%', overflowX: 'clip' }}>
       {/* 3D Character Figurine Carousel Hero Section (OPEN GYM) — 100% UNTOUCHED */}
       <div
         className="hero-section-wrapper"

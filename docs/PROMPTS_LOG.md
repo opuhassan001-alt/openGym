@@ -685,6 +685,40 @@
   - Verified live in Playwright with visual screenshots (`hero-verified-perfect.png` and `slide2-verified.png`).
   - Recorded completed task as item #104 in `docs/TODO.md`.
 
+### [Prompt #46] — AI Slop Audit & Complete Elimination
+- **User Prompt:**
+  > "তোমার কাছে যতগুলো GitHub repo আছে, যতগুলো plugin আছে, যতগুলো skill আছে সবকিছু implement করো। সবকিছু implement করে এই ওয়েবসাইটের মধ্যে যা যা AI slop আছে সবকিছু delete করতে হবে এখন সবকিছু দেখার পর কি কি delete করতে হবে সেটা আমাকে বলো। ... ok ঠিক আছে করো সমস্যা নাই আর করার পরে আমাকে দেখাও।"
+- **Execution & Status:**
+  - Audited full workspace against active Anti-AI-Slop and Impeccable craft floor rules (`agent-skills`, `impeccable`, `taste-skill`).
+  - Purged 10 dead/orphaned AI template files and duplicate directories:
+    - `AthleticHubGrid.jsx`, `ConsumerFeatureShowcase.jsx`, `EditorialBlogSection.jsx`, `HyperPersonalizationCard.jsx`, `OpenGym3DHero.jsx`, `ThreeBodyMuscleViewer.jsx`, `anatomicalMeshGenerator.js`, `block-coming-soon-1.jsx`, `block-coming-soon-1.css`, `signature.jsx`, and `unlumen-ui/`.
+  - Eliminated visual and gimmick AI slop:
+    - Removed rotating rainbow glow border (`GlowEffect`) and animated blurry fluid blobs (`FluidBlobs`) from Bento Card 6, replacing with a clean high-craft UNIQ French Blue athletic membership card.
+    - Removed artificial `feTurbulence` grain noise overlay from `OpenGymHero.tsx`.
+    - Cleaned cheesy AI sequence numbering (`01 · ANATOMY`, `02 · AI SYNTH`) and buzzwords ("Sub-3s Neural Periodization", "AI Synth") in `OpenGymLayeredStack.jsx`, replacing with authentic athletic sports science copy.
+  - Preserved 100% of 3D figurine carousel, baked dumbbells, closed clenched fists, interactive 2D anatomical muscle map, and TextRepel physics.
+  - Production build passed in 1.84s with zero errors.
+  - Captured live Playwright screenshots (`hero-clean-top.png`, `layered-stack-cleaned.png`, `bento-membership-cleaned.png`).
+  - Recorded completed task as item #105 in `docs/TODO.md`.
+
+### [Prompt #47] — Curated 4-Color Palette Implementation & Right Panel / Color Bar Alignment
+- **User Prompt:**
+  > "#A7FF84\n#16B978\n#086972\n#071A52\nUse these color plates in the website and it should be best combination. Right color bar right panel should be in the right position. In the right section"
+- **Execution & Status:**
+  - Implemented the user-designated 4-color palette in optimal visual hierarchy:
+    - `#071A52` (Midnight Navy): Foundation background for canvas, sections, cards, and modal backdrops.
+    - `#086972` (Deep Ocean Teal): Surface depth, card borders (`rgba(8, 105, 114, 0.4)`), inactive/neutral anatomical SVG contours, glass outlines.
+    - `#16B978` (Emerald Mint): Primary action buttons, active navigation states, interactive highlights, and optimal recovery indicators.
+    - `#A7FF84` (Neon Volt): Active muscle group glow highlights, readiness score meters, fresh status pills, and high-energy accents.
+  - Interactive Muscle Map Right Panel & Right Color Bar Alignment:
+    - Integrated a dynamic Recovery Color Bar meter directly beneath the Readiness Index in the diagnostics card, visually displaying the recovery tier (`linear-gradient(90deg, #086972 0%, #16B978 50%, #A7FF84 100%)`).
+    - Added dedicated Color Scale indicator in the right panel (`#A7FF84 Fresh`, `#16B978 Optimal`, `#086972 Active`, `#071A52 Rest`).
+    - Aligned `.muscle-grid-display` to `align-items: stretch` with `flex-direction: column` on `.muscle-detail-panel` so the right panel perfectly matches the left visualizer's height and position with anchored action buttons.
+  - Eliminated rogue purple/indigo text in Bento Section (`pulse-blue-text` and `pulse-italic-blue` converted to `#16B978` and `#A7FF84`).
+  - Production build passed in 74ms with zero errors.
+  - Verified live in Playwright with visual screenshots (`muscle_section_full.png`, `bento_palette.png`, `hero_top.png`).
+  - Recorded completed task as item #106 in `docs/TODO.md`.
+
 ---
 
 ## 🎯 Active Project Principles (Permanent Memory)

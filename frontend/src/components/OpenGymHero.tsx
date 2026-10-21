@@ -155,8 +155,6 @@ export default function OpenGymHero() {
     }
   };
 
-  const grainSvg = `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E")`;
-
   return (
     <div
       className="relative w-full overflow-hidden"
@@ -170,18 +168,6 @@ export default function OpenGymHero() {
         className="relative w-full"
         style={{ height: '100vh', overflow: 'hidden' }}
       >
-        {/* 1. Grain overlay */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            zIndex: 50,
-            opacity: 0.4,
-            backgroundImage: grainSvg,
-            backgroundSize: '200px 200px',
-            backgroundRepeat: 'repeat',
-          }}
-        />
-
         {/* 2. Background Grand Interactive TextRepel "OPEN GYM" (Dead-centered horizontally and vertically behind 3D Characters) */}
         <div
           style={{

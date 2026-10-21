@@ -19,11 +19,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #09071D;
-  border: 1px solid rgba(69, 109, 139, 0.28);
+  background: #071A52;
+  border: 1px solid rgba(8, 105, 114, 0.45);
   border-radius: 9999px;
   padding: 8px 14px 8px 10px;
-  box-shadow: 0 20px 45px -10px rgba(9, 7, 29, 0.8), 0 0 24px rgba(27, 65, 93, 0.25);
+  box-shadow: 0 20px 45px -10px rgba(9, 7, 29, 0.8), 0 0 24px rgba(22, 185, 120, 0.25);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(27, 65, 93, 0.3);
+  background: rgba(8, 105, 114, 0.35);
   padding: 6px 14px 6px 8px;
   border-radius: 9999px;
   cursor: pointer;
@@ -42,7 +42,7 @@
 }
 
 .pulse-brand-pill:hover {
-  background: rgba(27, 65, 93, 0.5);
+  background: rgba(22, 185, 120, 0.4);
   transform: translateY(-1px);
 }
 
@@ -50,11 +50,11 @@
   width: 28px;
   height: 28px;
   border-radius: 9999px;
-  background: linear-gradient(135deg, #1B415D 0%, #456D8B 100%);
+  background: linear-gradient(135deg, #086972 0%, #16B978 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #E8EFF5;
+  color: #A7FF84;
   box-shadow: 0 2px 8px rgba(9, 7, 29, 0.5);
 }
 
@@ -62,7 +62,7 @@
   font-size: 14px;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #E8EFF5;
+  color: #A7FF84;
 }
 
 /* Center: Nav Links */
@@ -80,7 +80,7 @@
   border-radius: 9999px;
   background: transparent;
   border: none;
-  color: #456D8B;
+  color: #16B978;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -88,25 +88,25 @@
 }
 
 .pulse-nav-btn:hover {
-  color: #E8EFF5;
-  background: rgba(27, 65, 93, 0.25);
+  color: #A7FF84;
+  background: rgba(22, 185, 120, 0.25);
 }
 
 .pulse-nav-btn.active {
-  color: #E8EFF5;
-  background: #1B415D;
-  border: 1px solid #456D8B;
+  color: #A7FF84;
+  background: #086972;
+  border: 1px solid #16B978;
   font-weight: 700;
 }
 
 .pulse-nav-dash {
   font-weight: 900;
-  color: #456D8B;
+  color: #16B978;
   margin-right: -2px;
 }
 
 .pulse-nav-btn.active .pulse-nav-dash {
-  color: #E8EFF5;
+  color: #A7FF84;
 }
 
 .pulse-link-icon {
@@ -121,7 +121,7 @@
 }
 
 .pulse-sparkle-icon {
-  color: #E8EFF5;
+  color: #A7FF84;
   font-size: 11px;
 }
 
@@ -141,14 +141,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #456D8B;
+  color: #16B978;
   cursor: pointer;
   transition: all 0.18s ease;
 }
 
 .pulse-icon-btn:hover {
-  background: rgba(27, 65, 93, 0.3);
-  color: #E8EFF5;
+  background: rgba(8, 105, 114, 0.35);
+  color: #A7FF84;
 }
 
 .pulse-avatar-circle {
@@ -156,7 +156,7 @@
   height: 30px;
   border-radius: 9999px;
   overflow: hidden;
-  border: 1.5px solid #456D8B;
+  border: 1.5px solid #16B978;
   cursor: pointer;
   margin-left: 4px;
   transition: transform 0.2s ease, border-color 0.2s ease;
@@ -164,7 +164,7 @@
 
 .pulse-avatar-circle:hover {
   transform: scale(1.08);
-  border-color: #E8EFF5;
+  border-color: #A7FF84;
 }
 
 .pulse-avatar-circle img {

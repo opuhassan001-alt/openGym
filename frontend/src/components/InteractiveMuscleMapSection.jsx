@@ -408,7 +408,7 @@ export default function InteractiveMuscleMapSection() {
             </div>
 
             {/* Subtle Divider Line */}
-            <div style={{ height: '1px', background: 'rgba(69, 109, 139, 0.25)', margin: '20px 0 14px' }} />
+            <div style={{ height: '1px', background: 'rgba(8, 105, 114, 0.45)', margin: '20px 0 14px' }} />
 
             {/* Bottom Row: Recovery Ramp + Selected Muscle */}
             <div
@@ -419,22 +419,22 @@ export default function InteractiveMuscleMapSection() {
                 width: '100%',
               }}
             >
-              {/* Left: Recovery Ramp with UNIQ 4-Tone Pills */}
+              {/* Left: Recovery Ramp with 4-Tone Palette Pills */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: '13px', color: '#456D8B', fontWeight: 500 }}>
+                <span style={{ fontSize: '13px', color: '#16B978', fontWeight: 600 }}>
                   Recovery Ramp:
                 </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                  <span style={{ width: 11, height: 11, borderRadius: 2, background: '#E8EFF5' }} title="Bleu Fumée" />
-                  <span style={{ width: 11, height: 11, borderRadius: 2, background: '#456D8B' }} title="Bleu Guède" />
-                  <span style={{ width: 11, height: 11, borderRadius: 2, background: '#1B415D' }} title="Bleu Charron" />
-                  <span style={{ width: 11, height: 11, borderRadius: 2, background: '#0A1A32', border: '1px solid #456D8B' }} title="Bleu Marine" />
+                <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  <span style={{ width: 14, height: 14, borderRadius: 3, background: '#A7FF84', boxShadow: '0 0 8px rgba(167, 255, 132, 0.6)' }} title="#A7FF84 (Fresh / 90–100%)" />
+                  <span style={{ width: 14, height: 14, borderRadius: 3, background: '#16B978' }} title="#16B978 (Optimal / 70–89%)" />
+                  <span style={{ width: 14, height: 14, borderRadius: 3, background: '#086972' }} title="#086972 (Recovering / 40–69%)" />
+                  <span style={{ width: 14, height: 14, borderRadius: 3, background: '#071A52', border: '1.5px solid #16B978' }} title="#071A52 (Fatigued / <40%)" />
                 </div>
               </div>
 
               {/* Right: Selected Muscle Label */}
-              <div style={{ fontSize: '13px', color: '#456D8B' }}>
-                Selected: <strong style={{ color: '#E8EFF5', fontWeight: 700 }}>{detail.name}</strong>
+              <div style={{ fontSize: '13px', color: '#16B978' }}>
+                Selected: <strong style={{ color: '#A7FF84', fontWeight: 700, textShadow: '0 0 10px rgba(167, 255, 132, 0.35)' }}>{detail.name}</strong>
               </div>
             </div>
 
@@ -446,7 +446,7 @@ export default function InteractiveMuscleMapSection() {
                 justifyContent: 'center',
                 marginTop: 16,
                 paddingTop: 14,
-                borderTop: '1px dashed rgba(69, 109, 139, 0.25)',
+                borderTop: '1px dashed rgba(8, 105, 114, 0.45)',
               }}
             >
               {muscleList.map((m) => (
@@ -474,20 +474,74 @@ export default function InteractiveMuscleMapSection() {
             <h3 className="detail-muscle-name">{detail.name}</h3>
             <div className="detail-latin-name">{detail.latin}</div>
 
-            <p style={{ fontSize: 13, color: '#475569', lineHeight: 1.5, margin: '0 0 20px' }}>
+            <p style={{ fontSize: 13, color: '#CBD5E1', lineHeight: 1.5, margin: '0 0 20px' }}>
               {detail.summary}
             </p>
 
             <div className="detail-metrics-grid">
               <div className="metric-card">
-                <div className="metric-card-label">Readiness Index</div>
-                <div className="metric-card-val" style={{ color: '#16A34A' }}>{detail.recovery}%</div>
-                <div className="metric-card-sub" style={{ color: '#16A34A' }}>{detail.fatigueIndex}</div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div className="metric-card-label">Readiness Index</div>
+                  <span style={{ fontSize: '10px', color: '#16B978', fontWeight: 800, letterSpacing: '0.04em' }}>
+                    {detail.recovery >= 90 ? 'PEAK' : detail.recovery >= 70 ? 'OPTIMAL' : 'ACTIVE'}
+                  </span>
+                </div>
+                <div className="metric-card-val" style={{ color: '#A7FF84', textShadow: '0 0 12px rgba(167, 255, 132, 0.4)' }}>{detail.recovery}%</div>
+                
+                {/* Right Recovery Color Bar Meter */}
+                <div style={{ marginTop: 6, marginBottom: 6 }}>
+                  <div style={{ height: 6, width: '100%', background: '#071A52', borderRadius: 999, overflow: 'hidden', border: '1px solid #086972' }}>
+                    <div
+                      style={{
+                        height: '100%',
+                        width: `${detail.recovery}%`,
+                        background: 'linear-gradient(90deg, #086972 0%, #16B978 50%, #A7FF84 100%)',
+                        borderRadius: 999,
+                        boxShadow: '0 0 8px rgba(167, 255, 132, 0.6)',
+                        transition: 'width 0.3s ease'
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="metric-card-sub" style={{ color: '#A7FF84', textShadow: '0 0 12px rgba(167, 255, 132, 0.4)' }}>{detail.fatigueIndex}</div>
               </div>
               <div className="metric-card">
                 <div className="metric-card-label">Recovery Window</div>
                 <div className="metric-card-val" style={{ fontSize: 16 }}>{detail.optimalWindow}</div>
-                <div className="metric-card-sub" style={{ color: '#64748B' }}>Last trained: {detail.lastTrained}</div>
+                <div className="metric-card-sub" style={{ color: '#94A3B8' }}>Last trained: {detail.lastTrained}</div>
+              </div>
+            </div>
+
+            {/* Right Panel Recovery Scale Color Bar */}
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '10px 14px',
+                background: 'rgba(8, 105, 114, 0.25)',
+                border: '1px solid rgba(8, 105, 114, 0.4)',
+                borderRadius: '12px',
+                marginBottom: '20px',
+              }}
+            >
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Color Scale:
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#A7FF84', fontWeight: 700 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: '#A7FF84', boxShadow: '0 0 6px #A7FF84' }} /> Fresh
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#16B978', fontWeight: 600 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: '#16B978' }} /> Optimal
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#5EEAD4', fontWeight: 600 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: '#086972', border: '1px solid #16B978' }} /> Active
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#94A3B8', fontWeight: 600 }}>
+                  <span style={{ width: 10, height: 10, borderRadius: 2, background: '#071A52', border: '1px solid #086972' }} /> Rest
+                </span>
               </div>
             </div>
 

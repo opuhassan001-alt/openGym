@@ -1,7 +1,6 @@
 import { useState, useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { BlobCard } from '@/components/ui/blob-card'
 import './OpenGymBentoSection.css'
 
 export default function OpenGymBentoSection({
@@ -750,7 +749,7 @@ export default function OpenGymBentoSection({
                   <div className="rm-percentages-grid">
                     <div className="rm-col">
                       <div className="rm-pct-label">Estimated 1RM</div>
-                      <div className="rm-pct-val" style={{ color: '#E8EFF5', fontSize: 16 }}>
+                      <div className="rm-pct-val" style={{ color: '#FFFFFF', fontSize: 16 }}>
                         {calculated1RM} kg
                       </div>
                     </div>
@@ -871,12 +870,12 @@ export default function OpenGymBentoSection({
                           ))
                         )}
                         {Object.keys(platesPerSide).length === 0 && (
-                          <span style={{ fontSize: 10, color: '#456D8B' }}>Empty Bar</span>
+                          <span style={{ fontSize: 10, color: '#A7FF84' }}>Empty Bar</span>
                         )}
                       </div>
                     </div>
 
-                    <div style={{ fontSize: 11, color: '#456D8B', fontWeight: 600, textAlign: 'center' }}>
+                    <div style={{ fontSize: 11, color: '#A7FF84', fontWeight: 600, textAlign: 'center' }}>
                       Per side: {Object.entries(platesPerSide).map(([p, c]) => `${c}×${p}kg`).join(', ') || 'No plates'}
                     </div>
                   </div>
@@ -965,13 +964,13 @@ export default function OpenGymBentoSection({
                     <div key={i} className="ex-dir-item">
                       <div>
                         <div className="ex-dir-name">{ex.name}</div>
-                        <div style={{ fontSize: 10, color: '#456D8B' }}>{ex.target}</div>
+                        <div style={{ fontSize: 10, color: '#A7FF84' }}>{ex.target}</div>
                       </div>
                       <span className="ex-dir-eq">{ex.eq}</span>
                     </div>
                   ))}
                   {filteredExercises.length === 0 && (
-                    <div style={{ fontSize: 12, color: '#456D8B', textAlign: 'center', padding: '12px 0' }}>
+                    <div style={{ fontSize: 12, color: '#A7FF84', textAlign: 'center', padding: '12px 0' }}>
                       No matching exercises found.
                     </div>
                   )}
@@ -979,7 +978,7 @@ export default function OpenGymBentoSection({
 
                 <button
                   className="form-btn-submit"
-                  style={{ background: '#1B415D' }}
+                  style={{ background: '#16B978' }}
                   onClick={() => onOpenLibrary ? onOpenLibrary() : nav('/library')}
                 >
                   <span>Explore Full 5,600+ Library</span>
@@ -1037,10 +1036,10 @@ export default function OpenGymBentoSection({
                   <div className="macro-bar-row">
                     <div className="macro-label-wrap">
                       <span>Daily Energy</span>
-                      <span style={{ color: '#E8EFF5' }}>{computedMacros.cals} kcal</span>
+                      <span style={{ color: '#FFFFFF' }}>{computedMacros.cals} kcal</span>
                     </div>
                     <div className="macro-meter-bg">
-                      <div className="macro-meter-fill" style={{ width: '85%', background: '#1B415D' }} />
+                      <div className="macro-meter-fill" style={{ width: '85%', background: '#16B978' }} />
                     </div>
                   </div>
 
@@ -1050,7 +1049,7 @@ export default function OpenGymBentoSection({
                       <span>{computedMacros.protein}g</span>
                     </div>
                     <div className="macro-meter-bg">
-                      <div className="macro-meter-fill" style={{ width: '92%', background: '#456D8B' }} />
+                      <div className="macro-meter-fill" style={{ width: '92%', background: '#A7FF84' }} />
                     </div>
                   </div>
 
@@ -1060,7 +1059,7 @@ export default function OpenGymBentoSection({
                       <span>{computedMacros.carbs}g</span>
                     </div>
                     <div className="macro-meter-bg">
-                      <div className="macro-meter-fill" style={{ width: '74%', background: '#1B415D' }} />
+                      <div className="macro-meter-fill" style={{ width: '74%', background: '#16B978' }} />
                     </div>
                   </div>
 
@@ -1070,14 +1069,14 @@ export default function OpenGymBentoSection({
                       <span>{computedMacros.fat}g</span>
                     </div>
                     <div className="macro-meter-bg">
-                      <div className="macro-meter-fill" style={{ width: '60%', background: '#456D8B' }} />
+                      <div className="macro-meter-fill" style={{ width: '60%', background: '#A7FF84' }} />
                     </div>
                   </div>
                 </div>
 
                 <button
                   className="form-btn-submit"
-                  style={{ background: '#1B415D' }}
+                  style={{ background: '#16B978' }}
                   onClick={() => onOpenMacro && onOpenMacro()}
                 >
                   <span>Open Full Nutrition Engine</span>
@@ -1154,7 +1153,7 @@ export default function OpenGymBentoSection({
                     <div className="qr-code-text">
                       <span className="qr-code-id">PASS #{Math.floor(100000 + Math.random() * 900000)}</span>
                       <span className="qr-code-status">● Turnstile Armed</span>
-                      <span style={{ fontSize: 10, color: '#456D8B' }}>Valid for 15 minutes</span>
+                      <span style={{ fontSize: 10, color: '#A7FF84' }}>Valid for 15 minutes</span>
                     </div>
                   </div>
                 ) : null}
@@ -1162,7 +1161,7 @@ export default function OpenGymBentoSection({
                 <div style={{ display: 'flex', gap: 8 }}>
                   <button
                     className="form-btn-submit"
-                    style={{ background: '#1B415D', flex: 1 }}
+                    style={{ background: '#16B978', flex: 1 }}
                     onClick={() => setQrActive(!qrActive)}
                   >
                     <span>{qrActive ? 'Hide QR Code' : 'Generate Digital Pass'}</span>
@@ -1178,31 +1177,26 @@ export default function OpenGymBentoSection({
             </div>
           </div>
 
-          {/* CARD 6: Transparent Membership & Instant Pass with @unlumen-ui/blob-card (col-span-3) */}
-          <div className="col-span-3 bento-blob-membership-wrapper">
-            <BlobCard
-              className="bento-blob-membership-card"
-              headerHeight={210}
-              header={
-                <div>
-                  <div className="card-header-tag" style={{ background: 'rgba(69, 109, 139, 0.25)', color: '#E8EFF5' }}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                      <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
-                      <line x1="1" y1="10" x2="23" y2="10" />
-                    </svg>
-                    <span>Zero Lock-In Contract</span>
-                  </div>
-                  <h3 className="card-title" style={{ color: '#E8EFF5', fontSize: '22px', fontWeight: 800 }}>
-                    Transparent Membership & Instant Access
-                  </h3>
-                  <p className="card-desc" style={{ color: '#456D8B', maxWidth: '720px' }}>
-                    Select your preferred training cycle. No hidden setup charges, no fine print, cancel or freeze anytime with a single click.
-                  </p>
-                </div>
-              }
-            >
-              {/* Working Membership Form inside BlobCard */}
-              <div className="functional-form-box" style={{ marginTop: 0 }}>
+          {/* CARD 6: Transparent Membership & Instant Access (col-span-3) */}
+          <div className="bento-card col-span-3 bento-membership-card">
+            <div className="bento-card-header">
+              <div className="card-header-tag" style={{ background: 'rgba(8, 105, 114, 0.35)', color: '#FFFFFF' }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                  <line x1="1" y1="10" x2="23" y2="10" />
+                </svg>
+                <span>Zero Lock-In Contract</span>
+              </div>
+              <h3 className="card-title" style={{ color: '#FFFFFF', fontSize: '22px', fontWeight: 800 }}>
+                Transparent Membership & Instant Access
+              </h3>
+              <p className="card-desc" style={{ color: '#A7FF84', maxWidth: '720px' }}>
+                Select your preferred training cycle. No hidden setup charges, no fine print, cancel or freeze anytime with a single click.
+              </p>
+            </div>
+
+            {/* Working Membership Form */}
+            <div className="functional-form-box" style={{ marginTop: 16 }}>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
                   {/* Left: Options & Toggles */}
                   <div>
@@ -1246,7 +1240,7 @@ export default function OpenGymBentoSection({
                       </label>
                     </div>
 
-                    <div style={{ fontSize: 12, color: '#456D8B', lineHeight: 1.5 }}>
+                    <div style={{ fontSize: 12, color: '#A7FF84', lineHeight: 1.5 }}>
                       Includes 24/7 biometric gym turnstile access, mobile training app, Olympic platform access, and guest day passes.
                     </div>
                   </div>
@@ -1259,7 +1253,7 @@ export default function OpenGymBentoSection({
                         <span>${membershipCalc.base.toFixed(2)}</span>
                       </div>
                       {studentDiscount && (
-                        <div className="invoice-row" style={{ color: '#456D8B' }}>
+                        <div className="invoice-row" style={{ color: '#A7FF84' }}>
                           <span>Student / First Responder Discount (-15%)</span>
                           <span>-${membershipCalc.discountAmount.toFixed(2)}</span>
                         </div>
@@ -1272,7 +1266,7 @@ export default function OpenGymBentoSection({
                       )}
                       <div className="invoice-row">
                         <span>Initiation / Processing Fee</span>
-                        <span style={{ color: '#E8EFF5', fontWeight: 700 }}>$0.00 (Free)</span>
+                        <span style={{ color: '#FFFFFF', fontWeight: 700 }}>$0.00 (Free)</span>
                       </div>
                       <div className="invoice-row total">
                         <span>Total Due Today</span>
@@ -1281,14 +1275,14 @@ export default function OpenGymBentoSection({
                     </div>
 
                     {passActivated ? (
-                      <div style={{ background: '#1B415D', color: '#E8EFF5', padding: '10px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700, marginBottom: 10, textAlign: 'center' }}>
+                      <div style={{ background: '#16B978', color: '#FFFFFF', padding: '10px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700, marginBottom: 10, textAlign: 'center' }}>
                         Pass Activated: Check your email & QR Check-In tab for turnstile credentials.
                       </div>
                     ) : null}
 
                     <button
                       className="form-btn-submit"
-                      style={{ background: '#1B415D' }}
+                      style={{ background: '#16B978' }}
                       onClick={() => setPassActivated(true)}
                     >
                       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -1299,7 +1293,6 @@ export default function OpenGymBentoSection({
                   </div>
                 </div>
               </div>
-            </BlobCard>
           </div>
 
         </div>
