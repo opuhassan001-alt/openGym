@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import './OpenGymBentoSection.css'
+import { validateEmail, isSpamBot, createRateLimiter } from '../lib/validation.js'
+import { trackEvent } from '../lib/analytics.js'
 
 export default function OpenGymBentoSection({
   onStartWorkout,
@@ -274,6 +276,11 @@ export default function OpenGymBentoSection({
   const [studentDiscount, setStudentDiscount] = useState(false)
   const [lockerAddon, setLockerAddon] = useState(false)
   const [passActivated, setPassActivated] = useState(false)
+  const [memberEmail, setMemberEmail] = useState('')
+  const [memberError, setMemberError] = useState('')
+  const [honeypot, setHoneypot] = useState('')
+  const [formTimestamp] = useState(() => Date.now())
+  const [rateLimiter] = useState(() => createRateLimiter(4, 15000))
 
   const membershipCalc = useMemo(() => {
     let base = 29
@@ -1274,18 +1281,98 @@ export default function OpenGymBentoSection({
                       </div>
                     </div>
 
+                    {/* Bot-protected digital pass recipient form */}
+                    <div style={{ marginBottom: 14 }}>
+                      <label style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#A7FF84', marginBottom: 6 }}>
+                        Digital Pass Recipient Email
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        className="form-input"
+                        placeholder="athlete@example.com"
+                        value={memberEmail}
+                        onChange={(e) => {
+                          setMemberEmail(e.target.value);
+                          if (memberError) setMemberError('');
+                        }}
+                        style={{
+                          width: '100%',
+                          background: 'rgba(7, 26, 82, 0.7)',
+                          border: memberError ? '1.5px solid #FF453A' : '1px solid rgba(8, 105, 114, 0.6)',
+                          borderRadius: 8,
+                          padding: '10px 14px',
+                          color: '#FFFFFF',
+                          fontSize: 13,
+                          outline: 'none',
+                          boxSizing: 'border-box'
+                        }}
+                      />
+                      {/* Hidden Spam Bot Honeypot */}
+                      <input
+                        type="text"
+                        name="hp_website"
+                        value={honeypot}
+                        onChange={(e) => setHoneypot(e.target.value)}
+                        style={{ display: 'none' }}
+                        tabIndex="-1"
+                        autoComplete="off"
+                        aria-hidden="true"
+                      />
+                      {memberError && (
+                        <div style={{ color: '#FF453A', fontSize: 12, fontWeight: 600, marginTop: 4 }}>
+                          {memberError}
+                        </div>
+                      )}
+                    </div>
+
                     {passActivated ? (
-                      <div style={{ background: '#16B978', color: '#FFFFFF', padding: '10px 14px', borderRadius: 8, fontSize: 13, fontWeight: 700, marginBottom: 10, textAlign: 'center' }}>
-                        Pass Activated: Check your email & QR Check-In tab for turnstile credentials.
+                      <div style={{ background: '#16B978', color: '#071A52', padding: '12px 14px', borderRadius: 8, fontSize: 13, fontWeight: 800, marginBottom: 12, textAlign: 'center', boxShadow: '0 4px 16px rgba(22, 185, 120, 0.4)' }}>
+                        ✓ Pass Issued to {memberEmail}! Turnstile access key generated.
                       </div>
                     ) : null}
 
                     <button
                       className="form-btn-submit"
-                      style={{ background: '#16B978' }}
-                      onClick={() => setPassActivated(true)}
+                      style={{
+                        background: '#16B978',
+                        color: '#071A52',
+                        border: '1px solid #A7FF84',
+                        fontWeight: 800,
+                        cursor: 'pointer',
+                        boxShadow: '0 4px 18px rgba(22, 185, 120, 0.35)',
+                        transition: 'all 0.15s ease'
+                      }}
+                      onMouseEnter={(e) => e.currentTarget.style.background = '#A7FF84'}
+                      onMouseLeave={(e) => e.currentTarget.style.background = '#16B978'}
+                      onClick={() => {
+                        // Rate limit check
+                        if (!rateLimiter()) {
+                          setMemberError('Too many attempts. Please wait 15 seconds.');
+                          return;
+                        }
+                        // Honeypot spam bot check
+                        if (isSpamBot({ hp_website: honeypot, timestamp: formTimestamp })) {
+                          setMemberError('Submission rejected by bot defense engine.');
+                          return;
+                        }
+                        // RFC 5322 Email Validation
+                        const val = validateEmail(memberEmail);
+                        if (!val.valid) {
+                          setMemberError(val.error);
+                          return;
+                        }
+                        setMemberError('');
+                        setPassActivated(true);
+                        trackEvent('membership_pass_activated', {
+                          plan: passType,
+                          studentDiscount,
+                          lockerAddon,
+                          total: membershipCalc.total
+                        });
+                      }}
                     >
-                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ width: 16, height: 16 }}>
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
                       </svg>
                       <span>Activate Instant Pass (${membershipCalc.total.toFixed(2)})</span>

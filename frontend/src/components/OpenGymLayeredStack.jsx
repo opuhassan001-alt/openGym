@@ -177,7 +177,7 @@ export default function OpenGymLayeredStack({
 
           <div className="og-ls-controls">
             <span className="og-ls-mode-btn active">
-              <Sparkles size={14} style={{ color: "#E8EFF5" }} />
+              <Sparkles size={14} style={{ color: "#090907" }} />
               Hover to Fan Out · Move away to Stack
             </span>
           </div>

@@ -1,0 +1,15 @@
+# openGym Enterprise robots.txt
+# https://opengym.app
+
+User-agent: *
+Allow: /
+Allow: /privacy
+Allow: /terms
+Allow: /library
+Allow: /muscles
+Disallow: /api/
+Disallow: /admin
+Disallow: /coach/setup
+
+Sitemap: https://opengym.app/sitemap.xml
+

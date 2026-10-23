@@ -2,11 +2,80 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- Primary SEO Meta -->
+<title>openGym — Athletic Intelligence &amp; 3D Training Platform</title>
+<meta name="title" content="openGym — Athletic Intelligence &amp; 3D Training Platform">
+<meta name="description" content="State-of-the-art gym intelligence: 3D interactive muscle kinetics, Olympic barbell math, automated interval training, and zero-slop athletic periodization. Privacy-first, passkey-secured.">
+<meta name="keywords" content="gym app, workout tracker, 3D muscle map, barbell plate math, interval timer, athletic periodization, strength training, openGym">
+<meta name="author" content="openGym Engineering">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://opengym.app/">
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://opengym.app/">
+<meta property="og:site_name" content="openGym">
+<meta property="og:title" content="openGym — Athletic Intelligence &amp; 3D Training Platform">
+<meta property="og:description" content="State-of-the-art gym intelligence: 3D interactive muscle kinetics, Olympic barbell math, automated interval training, and zero-slop athletic periodization.">
+<meta property="og:image" content="https://opengym.app/og-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="openGym Athletic Intelligence &amp; 3D Training Platform">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://opengym.app/">
+<meta name="twitter:title" content="openGym — Athletic Intelligence &amp; 3D Training Platform">
+<meta name="twitter:description" content="State-of-the-art gym intelligence: 3D interactive muscle kinetics, Olympic barbell math, and athletic periodization.">
+<meta name="twitter:image" content="https://opengym.app/og-preview.png">
+<meta name="twitter:image:alt" content="openGym Platform Preview">
+
+<!-- PWA & Mobile Icons -->
+<meta name="theme-color" content="#071A52">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="openGym">
+<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+<!-- Font preconnect & load -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Structured Data (JSON-LD) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "openGym",
+  "url": "https://opengym.app/",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "All",
+  "description": "High-craft athletic workout intelligence platform featuring 3D body muscle kinetics, Olympic plate calculator, interval suites, and periodized training.",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "openGym Engineering",
+    "url": "https://opengym.app"
+  }
+}
+</script>
+
 <script>
   // Set direction before first paint so an Arabic profile never flashes as LTR.
-  // The app re-applies this on every language change (lib/i18n.js setLang).
-  // i18n-core RTL_LANGS is the runtime source of truth — keep this list in sync.
   try {
     var s = JSON.parse(localStorage.getItem('gym_state_v1') || '{}');
     var l = s.lang || ((navigator.language || '').slice(0, 2) === 'ar' ? 'ar' : 'en');
@@ -14,25 +83,10 @@
     document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr';
   } catch (e) {}
 </script>
-<title>openGym</title>
-<meta name="description" content="Personal gym & body weight tracker">
-<meta name="theme-color" content="#0c0e12">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="openGym">
-<!-- use-credentials: browsers fetch the manifest without cookies, even same-origin; behind an auth
-     proxy (Authelia, Cloudflare Access, Teleport…) that fetch is a login redirect and the Home Screen
-     icon comes out generic. iOS 26 reads the icon from the manifest, so this is where it shows. -->
-<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
-<link rel="apple-touch-icon" href="icon-180.png">
-<link rel="icon" type="image/png" href="icon-180.png">
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 <div id="root"></div>
 <script type="module" src="/src/main.jsx"></script>
 </body>
 </html>
+

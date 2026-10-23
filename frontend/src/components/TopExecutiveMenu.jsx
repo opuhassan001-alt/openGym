@@ -201,6 +201,28 @@ export default function TopExecutiveMenu({ onStart }) {
                   <span className="top-exec-badge">⌘,</span>
                 )}
               </button>
+
+              <button
+                className={`top-exec-item ${cur === 'privacy' ? 'active' : ''}`}
+                onClick={() => handleNavigate('/privacy')}
+              >
+                <div className="top-exec-item-left">
+                  <span className="top-exec-item-icon"><Icon name="shield" /></span>
+                  <span>Privacy Policy</span>
+                </div>
+                <span className="top-exec-badge" style={{ color: '#A7FF84' }}>GDPR</span>
+              </button>
+
+              <button
+                className={`top-exec-item ${cur === 'terms' ? 'active' : ''}`}
+                onClick={() => handleNavigate('/terms')}
+              >
+                <div className="top-exec-item-left">
+                  <span className="top-exec-item-icon"><Icon name="doc" /></span>
+                  <span>Terms &amp; Conditions</span>
+                </div>
+                <span className="top-exec-badge">Legal</span>
+              </button>
             </div>
           </div>
         )}

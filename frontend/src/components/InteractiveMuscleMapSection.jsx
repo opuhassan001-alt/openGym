@@ -308,7 +308,7 @@ export default function InteractiveMuscleMapSection() {
               <div
                 style={{
                   display: 'flex',
-                  background: '#0A1A32',
+                  background: '#6C5636',
                   padding: '3px',
                   borderRadius: '9999px',
                   gap: 2,
@@ -325,8 +325,8 @@ export default function InteractiveMuscleMapSection() {
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    background: twoDView === 'front' ? '#1B415D' : 'transparent',
-                    color: twoDView === 'front' ? '#E8EFF5' : '#456D8B',
+                    background: twoDView === 'front' ? '#F59E0B' : 'transparent',
+                    color: '#141414',
                     boxShadow: twoDView === 'front' ? '0 2px 8px rgba(27, 65, 93, 0.5)' : 'none',
                     transition: 'all 0.15s ease',
                   }}
@@ -343,8 +343,8 @@ export default function InteractiveMuscleMapSection() {
                     fontSize: '11px',
                     fontWeight: 700,
                     cursor: 'pointer',
-                    background: twoDView === 'back' ? '#1B415D' : 'transparent',
-                    color: twoDView === 'back' ? '#E8EFF5' : '#456D8B',
+                    background: twoDView === 'back' ? '#F59E0B' : 'transparent',
+                    color: '#141414',
                     boxShadow: twoDView === 'back' ? '0 2px 8px rgba(27, 65, 93, 0.5)' : 'none',
                     transition: 'all 0.15s ease',
                   }}
@@ -408,7 +408,7 @@ export default function InteractiveMuscleMapSection() {
             </div>
 
             {/* Subtle Divider Line */}
-            <div style={{ height: '1px', background: 'rgba(8, 105, 114, 0.45)', margin: '20px 0 14px' }} />
+            <div style={{ height: '1px', background: 'rgba(245, 158, 11, 0.45)', margin: '20px 0 14px' }} />
 
             {/* Bottom Row: Recovery Ramp + Selected Muscle */}
             <div
@@ -421,7 +421,7 @@ export default function InteractiveMuscleMapSection() {
             >
               {/* Left: Recovery Ramp with 4-Tone Palette Pills */}
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <span style={{ fontSize: '13px', color: '#16B978', fontWeight: 600 }}>
+                <span style={{ fontSize: '13px', color: '#090907', fontWeight: 700 }}>
                   Recovery Ramp:
                 </span>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
@@ -434,7 +434,7 @@ export default function InteractiveMuscleMapSection() {
 
               {/* Right: Selected Muscle Label */}
               <div style={{ fontSize: '13px', color: '#16B978' }}>
-                Selected: <strong style={{ color: '#A7FF84', fontWeight: 700, textShadow: '0 0 10px rgba(167, 255, 132, 0.35)' }}>{detail.name}</strong>
+                Selected: <strong style={{ color: '#090907', fontWeight: 800 }}>{detail.name}</strong>
               </div>
             </div>
 
@@ -446,7 +446,7 @@ export default function InteractiveMuscleMapSection() {
                 justifyContent: 'center',
                 marginTop: 16,
                 paddingTop: 14,
-                borderTop: '1px dashed rgba(8, 105, 114, 0.45)',
+                borderTop: '1.5px dashed rgba(245, 158, 11, 0.45)',
               }}
             >
               {muscleList.map((m) => (
@@ -474,7 +474,7 @@ export default function InteractiveMuscleMapSection() {
             <h3 className="detail-muscle-name">{detail.name}</h3>
             <div className="detail-latin-name">{detail.latin}</div>
 
-            <p style={{ fontSize: 13, color: '#CBD5E1', lineHeight: 1.5, margin: '0 0 20px' }}>
+            <p style={{ fontSize: 13, color: '#090907', lineHeight: 1.5, margin: '0 0 20px' }}>
               {detail.summary}
             </p>
 
@@ -482,20 +482,20 @@ export default function InteractiveMuscleMapSection() {
               <div className="metric-card">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div className="metric-card-label">Readiness Index</div>
-                  <span style={{ fontSize: '10px', color: '#16B978', fontWeight: 800, letterSpacing: '0.04em' }}>
+                  <span style={{ fontSize: '10px', color: '#141414', fontWeight: 800, letterSpacing: '0.04em' }}>
                     {detail.recovery >= 90 ? 'PEAK' : detail.recovery >= 70 ? 'OPTIMAL' : 'ACTIVE'}
                   </span>
                 </div>
-                <div className="metric-card-val" style={{ color: '#A7FF84', textShadow: '0 0 12px rgba(167, 255, 132, 0.4)' }}>{detail.recovery}%</div>
+                <div className="metric-card-val" style={{ color: '#090907' }}>{detail.recovery}%</div>
                 
                 {/* Right Recovery Color Bar Meter */}
                 <div style={{ marginTop: 6, marginBottom: 6 }}>
-                  <div style={{ height: 6, width: '100%', background: '#071A52', borderRadius: 999, overflow: 'hidden', border: '1px solid #086972' }}>
+                  <div style={{ height: 6, width: '100%', background: 'rgba(245, 158, 11, 0.2)', borderRadius: 999, overflow: 'hidden', border: '1.5px solid #F59E0B' }}>
                     <div
                       style={{
                         height: '100%',
                         width: `${detail.recovery}%`,
-                        background: 'linear-gradient(90deg, #086972 0%, #16B978 50%, #A7FF84 100%)',
+                        background: 'linear-gradient(90deg, #F59E0B 0%, #141414 100%)',
                         borderRadius: 999,
                         boxShadow: '0 0 8px rgba(167, 255, 132, 0.6)',
                         transition: 'width 0.3s ease'
@@ -504,12 +504,12 @@ export default function InteractiveMuscleMapSection() {
                   </div>
                 </div>
 
-                <div className="metric-card-sub" style={{ color: '#A7FF84', textShadow: '0 0 12px rgba(167, 255, 132, 0.4)' }}>{detail.fatigueIndex}</div>
+                <div className="metric-card-sub" style={{ color: '#090907' }}>{detail.fatigueIndex}</div>
               </div>
               <div className="metric-card">
                 <div className="metric-card-label">Recovery Window</div>
                 <div className="metric-card-val" style={{ fontSize: 16 }}>{detail.optimalWindow}</div>
-                <div className="metric-card-sub" style={{ color: '#94A3B8' }}>Last trained: {detail.lastTrained}</div>
+                <div className="metric-card-sub" style={{ color: '#090907' }}>Last trained: {detail.lastTrained}</div>
               </div>
             </div>
 
@@ -520,26 +520,27 @@ export default function InteractiveMuscleMapSection() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 padding: '10px 14px',
-                background: 'rgba(8, 105, 114, 0.25)',
-                border: '1px solid rgba(8, 105, 114, 0.4)',
+                background: 'rgba(135, 154, 133, 0.55)',
+                border: '1.5px solid rgba(245, 158, 11, 0.4)',
+                boxShadow: '0 0 12px rgba(245, 158, 11, 0.2)',
                 borderRadius: '12px',
                 marginBottom: '20px',
               }}
             >
-              <div style={{ fontSize: '11px', fontWeight: 700, color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              <div style={{ fontSize: '11px', fontWeight: 700, color: '#090907', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Color Scale:
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#A7FF84', fontWeight: 700 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#090907', fontWeight: 700 }}>
                   <span style={{ width: 10, height: 10, borderRadius: 2, background: '#A7FF84', boxShadow: '0 0 6px #A7FF84' }} /> Fresh
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#16B978', fontWeight: 600 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#090907', fontWeight: 600 }}>
                   <span style={{ width: 10, height: 10, borderRadius: 2, background: '#16B978' }} /> Optimal
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#5EEAD4', fontWeight: 600 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#090907', fontWeight: 600 }}>
                   <span style={{ width: 10, height: 10, borderRadius: 2, background: '#086972', border: '1px solid #16B978' }} /> Active
                 </span>
-                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#94A3B8', fontWeight: 600 }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, fontSize: '11px', color: '#090907', fontWeight: 600 }}>
                   <span style={{ width: 10, height: 10, borderRadius: 2, background: '#071A52', border: '1px solid #086972' }} /> Rest
                 </span>
               </div>

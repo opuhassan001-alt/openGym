@@ -99,25 +99,23 @@ export default function OpenGymHero() {
     role: 'center' | 'left' | 'right' | 'back'
   ): React.CSSProperties => {
     const transition =
-      'transform 650ms cubic-bezier(0.4,0,0.2,1), filter 650ms cubic-bezier(0.4,0,0.2,1), opacity 650ms cubic-bezier(0.4,0,0.2,1), left 650ms cubic-bezier(0.4,0,0.2,1), height 650ms cubic-bezier(0.4,0,0.2,1), bottom 650ms cubic-bezier(0.4,0,0.2,1)';
+      'transform 650ms cubic-bezier(0.4,0,0.2,1), opacity 650ms cubic-bezier(0.4,0,0.2,1), left 650ms cubic-bezier(0.4,0,0.2,1), height 650ms cubic-bezier(0.4,0,0.2,1), bottom 650ms cubic-bezier(0.4,0,0.2,1)';
 
     switch (role) {
       case 'center':
         return {
           transform: `translateX(-50%) scale(${isMobile ? 1.0 : 1.25})`,
-          filter: 'blur(0px)',
           opacity: 1,
           zIndex: 20,
           left: '50%',
           height: isMobile ? '52%' : '76%',
           bottom: isMobile ? '22%' : 0,
           transition,
-          willChange: 'transform, filter, opacity',
+          willChange: 'transform, opacity',
         };
       case 'left':
         return {
           transform: 'translateX(-50%) scale(0.85)',
-          filter: 'blur(2px)',
           opacity: 0.85,
           zIndex: 10,
           left: isMobile ? '20%' : '30%',
@@ -125,12 +123,11 @@ export default function OpenGymHero() {
           bottom: isMobile ? '32%' : '12%',
           cursor: 'pointer',
           transition,
-          willChange: 'transform, filter, opacity',
+          willChange: 'transform, opacity',
         };
       case 'right':
         return {
           transform: 'translateX(-50%) scale(0.85)',
-          filter: 'blur(2px)',
           opacity: 0.85,
           zIndex: 10,
           left: isMobile ? '80%' : '70%',
@@ -138,35 +135,49 @@ export default function OpenGymHero() {
           bottom: isMobile ? '32%' : '12%',
           cursor: 'pointer',
           transition,
-          willChange: 'transform, filter, opacity',
+          willChange: 'transform, opacity',
         };
       case 'back':
         return {
           transform: 'translateX(-50%) scale(0.8)',
-          filter: 'blur(4px)',
-          opacity: 1,
+          opacity: 0.7,
           zIndex: 5,
           left: '50%',
           height: isMobile ? '13%' : '22%',
           bottom: isMobile ? '32%' : '12%',
           transition,
-          willChange: 'transform, filter, opacity',
+          willChange: 'transform, opacity',
         };
     }
   };
 
   return (
     <div
-      className="relative w-full overflow-hidden"
+      className="relative w-full"
       style={{
         backgroundColor: IMAGES[activeIndex].bg,
         transition: 'background-color 650ms cubic-bezier(0.4,0,0.2,1)',
         fontFamily: "'Inter', sans-serif",
+        margin: 0,
+        padding: 0,
+        border: 'none',
+        outline: 'none',
+        boxShadow: 'none',
       }}
     >
       <div
         className="relative w-full"
-        style={{ height: '100vh', overflow: 'hidden' }}
+        style={{
+          height: '100vh',
+          minHeight: '100vh',
+          overflowX: 'clip',
+          overflowY: 'visible',
+          margin: 0,
+          padding: 0,
+          border: 'none',
+          outline: 'none',
+          boxShadow: 'none',
+        }}
       >
         {/* 2. Background Grand Interactive TextRepel "OPEN GYM" (Dead-centered horizontally and vertically behind 3D Characters) */}
         <div
@@ -210,6 +221,9 @@ export default function OpenGymHero() {
                 style={{
                   position: 'absolute',
                   aspectRatio: '0.75 / 1',
+                  border: 'none',
+                  outline: 'none',
+                  boxShadow: 'none',
                   ...getRoleStyles(role),
                 }}
                 onClick={() => {
@@ -231,6 +245,9 @@ export default function OpenGymHero() {
                     height: '100%',
                     objectFit: 'contain',
                     objectPosition: 'bottom center',
+                    border: 'none',
+                    outline: 'none',
+                    boxShadow: 'none',
                   }}
                 />
               </div>
@@ -340,7 +357,12 @@ export default function OpenGymHero() {
           href="#discover"
           onClick={(e) => {
             e.preventDefault();
-            navigate('next');
+            const nextSec = document.querySelector('.og-layered-stack-section') || document.querySelector('.interactive-muscle-section');
+            if (nextSec) {
+              nextSec.scrollIntoView({ behavior: 'smooth' });
+            } else {
+              navigate('next');
+            }
           }}
           style={{
             position: 'absolute',

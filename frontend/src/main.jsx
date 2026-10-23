@@ -5,7 +5,11 @@ import { MOBILE } from './lib/mobile.js'
 import { useStore } from './store/useStore.js'
 import { startMediaSync } from './lib/media-sync.js'
 import { startNativeKeyboard } from './lib/native-keyboard.js'
+import { initErrorMonitoring } from './lib/error-monitor.js'
 import './index.css'
+
+// Initialize industrial-grade client error monitoring
+initErrorMonitoring()
 
 // App.jsx restores per-route scroll itself; the browser's own attempt races it.
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
@@ -29,3 +33,4 @@ if (!MOBILE && 'serviceWorker' in navigator && location.protocol === 'https:') {
   // It only fetches ahead while the page runs as the installed app; a tab keeps what it has shown.
   import('./lib/media-prefetch.js').then(m => m.startMediaPrefetch(useStore)).catch(() => {})
 }
+

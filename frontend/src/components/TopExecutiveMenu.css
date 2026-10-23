@@ -35,9 +35,9 @@
 .top-exec-trigger.active {
   transform: scale(1.06);
   background: rgba(22, 27, 38, 0.92);
-  border-color: rgba(204, 255, 0, 0.5);
-  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(204, 255, 0, 0.25);
-  color: #ccff00;
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 10px 36px rgba(0, 0, 0, 0.65), 0 0 20px rgba(245, 158, 11, 0.25);
+  color: #F59E0B;
 }
 
 .top-exec-trigger:active {
@@ -57,8 +57,8 @@
 }
 
 .top-exec-dot.active-workout {
-  background: #ccff00;
-  box-shadow: 0 0 8px #ccff00;
+  background: #F59E0B;
+  box-shadow: 0 0 8px #F59E0B;
   animation: execPulse 1.8s infinite ease-in-out;
 }
 
@@ -90,7 +90,7 @@
   padding: 12px;
   box-shadow: 0 24px 64px -10px rgba(0, 0, 0, 0.85),
               0 0 1px 1px rgba(255, 255, 255, 0.08),
-              0 0 32px rgba(204, 255, 0, 0.08);
+              0 0 32px rgba(245, 158, 11, 0.08);
   backdrop-filter: blur(32px) saturate(210%);
   -webkit-backdrop-filter: blur(32px) saturate(210%);
   animation: execSlideDown 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
@@ -132,12 +132,12 @@
   width: 32px;
   height: 32px;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(204, 255, 0, 0.18) 0%, rgba(0, 242, 254, 0.08) 100%);
-  border: 1px solid rgba(204, 255, 0, 0.35);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(0, 242, 254, 0.08) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 12px rgba(204, 255, 0, 0.15);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
 }
 
 .top-exec-brand-title {
@@ -230,35 +230,35 @@
 }
 
 .top-exec-item:hover .top-exec-item-icon {
-  color: #ccff00;
+  color: #F59E0B;
 }
 
 .top-exec-item.active {
-  background: rgba(204, 255, 0, 0.1);
-  border-color: rgba(204, 255, 0, 0.28);
-  color: #ccff00;
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.28);
+  color: #F59E0B;
 }
 
 .top-exec-item.active .top-exec-item-icon {
-  color: #ccff00;
+  color: #F59E0B;
 }
 
 /* Special Start Workout Item */
 .top-exec-item.start-btn {
-  background: linear-gradient(135deg, rgba(204, 255, 0, 0.16) 0%, rgba(48, 209, 88, 0.12) 100%);
-  border: 1px solid rgba(204, 255, 0, 0.35);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(48, 209, 88, 0.12) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   color: #ffffff;
   margin: 3px 0;
 }
 
 .top-exec-item.start-btn:hover {
-  background: linear-gradient(135deg, rgba(204, 255, 0, 0.26) 0%, rgba(48, 209, 88, 0.2) 100%);
-  border-color: #ccff00;
-  box-shadow: 0 0 16px rgba(204, 255, 0, 0.2);
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.26) 0%, rgba(48, 209, 88, 0.2) 100%);
+  border-color: #F59E0B;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.2);
 }
 
 .top-exec-item.start-btn .top-exec-item-icon {
-  color: #ccff00;
+  color: #F59E0B;
 }
 
 /* Badge / Shortcut in Menu */
@@ -273,7 +273,7 @@
 }
 
 .top-exec-badge.live {
-  background: rgba(204, 255, 0, 0.18);
-  color: #ccff00;
+  background: rgba(245, 158, 11, 0.18);
+  color: #F59E0B;
 }
 

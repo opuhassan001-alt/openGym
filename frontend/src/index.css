@@ -116,16 +116,15 @@
 /* ---------------------------------------------------------------- reset -- */
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{
-  font-size:16px;background:var(--bg);overscroll-behavior:none;overflow-x:clip;
+  font-size:16px;background:var(--bg);
   -webkit-text-size-adjust:100%;
 }
 body{
   background:var(--bg);color:var(--label);
   font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Segoe UI',Roboto,system-ui,sans-serif;
   font-size:17px;line-height:1.29;letter-spacing:-.01em;
-  min-height:100vh;min-height:100dvh;overscroll-behavior-y:none;overflow-x:clip;
+  min-height:100vh;min-height:100dvh;
   -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-  touch-action:manipulation;
   font-variant-numeric:tabular-nums;
 }
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;letter-spacing:inherit}
@@ -168,8 +167,32 @@ button,.chip,.tile,.item,.wday,.cal-d,.swatch,.hm-c,.lrow,.seg button,.stp butto
   padding:calc(var(--sat) + var(--conn) + 8px) var(--pad) calc(88px + var(--sab));
   max-width:560px;margin:0 auto;
 }
-.hero-section-wrapper{
-  margin-top:calc(-1 * (var(--sat) + var(--conn) + 8px));
+/* Landing page / Home full-bleed immunity: 0 top-padding, 0 margin offsets, eliminates any gap or line glitch */
+#app.is-home,
+#app:has(.hero-section-wrapper),
+body:has(.hero-section-wrapper) #app {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+#app.is-home ~ #tabbar,
+body:has(.hero-section-wrapper) #tabbar {
+  display: none !important;
+}
+.hero-section-wrapper {
+  margin: 0 !important;
+  padding: 0 !important;
+  top: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  overflow: visible !important;
 }
 /* Android 15 with the keyboard up: room to scroll the last field on a page above the keys.
    The tab bar stays where it is, under the keyboard, rather than riding up on it. */
@@ -1909,8 +1932,21 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
 .cols{display:block}
 @media (min-width:1000px){
   #app{max-width:1080px;padding-top:calc(var(--conn) + 32px);padding-bottom:calc(128px + var(--sab))}
-  .hero-section-wrapper{
-    margin-top:calc(-1 * (var(--conn) + 32px));
+  #app.is-home,
+  #app:has(.hero-section-wrapper) {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    border: none !important;
+  }
+  .hero-section-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 0 !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
   }
   .conn-row{max-width:640px}   /* the width of the .narrow pages below it */
   body.resting #app{padding-bottom:calc(220px + var(--sab))}
@@ -2153,23 +2189,54 @@ button.wl-summary{width:100%;padding:0 0 10px;text-align:start;border-radius:var
   color: #A7FF84 !important;
 }
 
+/* Fluid, Smooth-Scrolling System & Sleek Amber Track Scrollbar
+   100% Full-Viewport Mouse Wheel, Touchpad & Drag Control with Zero Glitches */
+html {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+    height: 100%;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(245, 158, 11, 0.5) rgba(13, 16, 23, 0.35);
+}
+
+body {
+  overflow: visible !important;
+  min-height: 100%;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+#root,
+#app {
+  overflow: visible !important;
+  min-height: 100%;
+}
+
+/* Custom WebKit/Blink Scrollbar */
 ::-webkit-scrollbar {
   width: 9px;
   height: 9px;
+  background: rgba(13, 16, 23, 0.2);
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: rgba(13, 16, 23, 0.35);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #16B978;
+  background: rgba(245, 158, 11, 0.5);
   border-radius: 9999px;
-  border: 2px solid #071A52;
+  border: 2px solid rgba(13, 16, 23, 0.35);
+  background-clip: padding-box;
+  transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #A7FF84;
+  background: #F59E0B;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 /* Precision UNIQ Custom Pointer & Caret */
