@@ -1,0 +1,664 @@
+/* ============================================================================
+   Novaryn Hero Section Component CSS
+   Exact Measurements, Design Unit --u, WAAPI, Orbit Wash & Responsive Layout
+   ========================================================================== */
+
+:root {
+  --u: min(100vw / 1280, 100svh / 800);
+  --novaryn-bg: #f7f8f3;
+  --novaryn-ink: #25251d;
+  --novaryn-accent: #7b3cff;
+}
+
+@supports not (height: 100svh) {
+  :root {
+    --u: min(100vw / 1280, 100vh / 800);
+  }
+}
+
+.novaryn-hero-wrapper {
+  position: relative;
+  width: 100%;
+  background-color: var(--novaryn-bg);
+  color: var(--novaryn-ink);
+  font-family: "Novaryn Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  margin-bottom: 28px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.45);
+}
+
+/* Editorial Top Band: 345u tall on desktop */
+.novaryn-top-band {
+  position: relative;
+  width: 100%;
+  height: calc(345 * var(--u));
+  background-color: var(--novaryn-bg);
+  z-index: 20;
+}
+
+/* 4u-wide vertical hairline at horizontal center */
+.novaryn-hairline {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(4 * var(--u));
+  height: 100%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, #f5f6f1 0%, #f5f6f1 25%, #f3f4ef 25%, #f3f4ef 75%, #f5f6f1 75%, #f5f6f1 100%);
+  transform-origin: top center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Logo: top-left, 20u left, 21u top, z-index 90 */
+.novaryn-logo {
+  position: absolute;
+  left: calc(20 * var(--u));
+  top: calc(21 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(10 * var(--u));
+  z-index: 90;
+  text-decoration: none;
+  color: var(--novaryn-ink);
+}
+
+.novaryn-logo-svg {
+  width: calc(39 * var(--u));
+  height: calc(26 * var(--u));
+  fill: var(--novaryn-ink);
+  flex-shrink: 0;
+}
+
+.novaryn-wordmark {
+  font-size: calc(34.5 * var(--u));
+  font-weight: 350;
+  line-height: 1;
+  letter-spacing: -0.003em;
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.novaryn-star-svg {
+  width: calc(6.4 * var(--u));
+  height: calc(6.4 * var(--u));
+  fill: var(--novaryn-ink);
+  margin-left: calc(2 * var(--u));
+  transform: translateY(calc(-4 * var(--u)));
+  flex-shrink: 0;
+}
+
+/* Menu Button: top-right, 20u right and top, height 35u, gap 16.5u */
+.novaryn-menu-btn {
+  position: absolute;
+  right: calc(20 * var(--u));
+  top: calc(20 * var(--u));
+  height: calc(35 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  gap: calc(16.5 * var(--u));
+  background: none;
+  border: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  z-index: 90;
+}
+
+.novaryn-label-stack {
+  position: relative;
+  height: calc(35 * var(--u));
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  font-size: calc(18 * var(--u));
+  font-weight: 350;
+}
+
+.novaryn-label-stack .label-text {
+  display: block;
+  transition: transform 800ms cubic-bezier(.65, 0, .2, 1);
+}
+
+.novaryn-label-stack .label-menu.hidden-up {
+  transform: translateY(-100%);
+}
+
+.novaryn-label-stack .label-close {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transform: translateY(100%);
+}
+
+.novaryn-label-stack .label-close.visible-in {
+  transform: translateY(0);
+}
+
+.novaryn-icon-box {
+  position: relative;
+  width: calc(36 * var(--u));
+  height: calc(36 * var(--u));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.novaryn-dots-glyph {
+  width: 100%;
+  height: 100%;
+  fill: var(--novaryn-ink);
+  transition: opacity 150ms ease;
+}
+
+.novaryn-dots-glyph.faded {
+  opacity: 0;
+}
+
+.novaryn-close-x {
+  position: absolute;
+  width: calc(22 * var(--u));
+  height: calc(22 * var(--u));
+  opacity: 0;
+  pointer-events: none;
+  transform: rotate(-90deg) scale(0.3);
+  transition: transform 900ms cubic-bezier(.16, 1, .3, 1) 450ms, opacity 250ms ease 450ms;
+}
+
+.novaryn-close-x::before,
+.novaryn-close-x::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background-color: var(--novaryn-ink);
+}
+
+.novaryn-close-x::before {
+  transform: rotate(45deg);
+}
+
+.novaryn-close-x::after {
+  transform: rotate(-45deg);
+}
+
+.novaryn-close-x.active {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Pill See Further: right 20u, top 144.5u, height 41u, padding 4u 19.5u 0 20.8u */
+.novaryn-cta-pill {
+  position: absolute;
+  right: calc(20 * var(--u));
+  top: calc(144.5 * var(--u));
+  height: calc(41 * var(--u));
+  padding: calc(4 * var(--u)) calc(19.5 * var(--u)) 0 calc(20.8 * var(--u));
+  background-color: #25251d;
+  color: #edefe8;
+  border-radius: 9999px;
+  font-weight: 350;
+  font-size: max(12px, calc(16.5 * var(--u)));
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  z-index: 2;
+}
+
+/* Headline: left 20u, top 207.6u, size 62.14u, weight 450, letter-spacing -0.015em, line-height 60u, nowrap */
+.novaryn-headline {
+  position: absolute;
+  left: calc(20 * var(--u));
+  top: calc(207.6 * var(--u));
+  font-size: calc(62.14 * var(--u));
+  font-weight: 450;
+  letter-spacing: -0.015em;
+  line-height: calc(60 * var(--u));
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.novaryn-headline .hl-line {
+  display: block;
+  overflow: hidden;
+}
+
+.novaryn-headline .hl-line span {
+  display: inline-block;
+}
+
+.novaryn-trademark {
+  font-size: 0.83em;
+  vertical-align: top;
+  margin-left: calc(2.1 * var(--u));
+  position: relative;
+  top: calc(-6.3 * var(--u));
+}
+
+/* Lead paragraph: right 20u, top 228u, width 520u, padding-left 21u, size max(13px, 20.5u), line-height 1.3171 */
+.novaryn-lead {
+  position: absolute;
+  right: calc(20 * var(--u));
+  top: calc(228 * var(--u));
+  width: calc(520 * var(--u));
+  padding-left: calc(21 * var(--u));
+  font-size: max(13px, calc(20.5 * var(--u)));
+  font-weight: 400;
+  letter-spacing: 0.004em;
+  line-height: 1.3171;
+  border-left: max(1.5px, calc(2.4 * var(--u))) solid #1c1c1c;
+  z-index: 2;
+}
+
+.novaryn-lead .lead-row {
+  white-space: nowrap;
+  display: block;
+}
+
+/* Video Stage */
+.novaryn-stage {
+  position: relative;
+  width: calc(100% - calc(40 * var(--u)));
+  height: clamp(340px, 45svh, 520px);
+  margin: 0 calc(20 * var(--u));
+  border-radius: calc(5 * var(--u)) calc(5 * var(--u)) 0 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(120% 90% at 52% 45%, #334a5f 0%, #142333 48%, #05090f 100%);
+}
+
+.novaryn-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 45%;
+}
+
+/* News Capsule Bar over video: centered, bottom 30u, width 800u, min-height 56u */
+.novaryn-news-bar {
+  position: absolute;
+  bottom: calc(30 * var(--u));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(calc(800 * var(--u)), 92%);
+  min-height: calc(56 * var(--u));
+  border-radius: calc(2 * var(--u));
+  padding: calc(8 * var(--u)) calc(8 * var(--u)) calc(8 * var(--u)) calc(20 * var(--u));
+  background: rgba(189, 191, 177, 0.985);
+  backdrop-filter: blur(24px) saturate(1.1);
+  -webkit-backdrop-filter: blur(24px) saturate(1.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(16 * var(--u));
+  z-index: 10;
+}
+
+.novaryn-news-text {
+  color: #25251d;
+  font-weight: 350;
+  font-size: max(12px, calc(17.5 * var(--u)));
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.novaryn-news-action {
+  flex-shrink: 0;
+  width: calc(118 * var(--u));
+  height: calc(40 * var(--u));
+  background-color: #25251d;
+  color: #d2d3c7;
+  border: none;
+  border-radius: 9999px;
+  font-size: max(12px, calc(16.75 * var(--u)));
+  font-weight: 350;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* =========================================================================
+   ORBIT MENU OVERLAY
+   ========================================================================= */
+.novaryn-orbit-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  pointer-events: none;
+  visibility: hidden;
+  clip-path: circle(0px at calc(100vw - 20 * var(--u) - 18 * var(--u)) calc(20 * var(--u) + 17.5 * var(--u)));
+  transition: clip-path 1s cubic-bezier(.7, 0, .25, 1) 250ms, visibility 0s linear 1.3s;
+}
+
+.novaryn-orbit-overlay.open {
+  pointer-events: auto;
+  visibility: visible;
+  clip-path: circle(150vmax at calc(100vw - 20 * var(--u) - 18 * var(--u)) calc(20 * var(--u) + 17.5 * var(--u)));
+  transition: clip-path 1.2s cubic-bezier(.62, 0, .18, 1) 0s;
+}
+
+.novaryn-wash {
+  position: absolute;
+  inset: 0;
+  background: rgba(247, 248, 243, 0.90);
+  backdrop-filter: blur(16px) saturate(0.9);
+  -webkit-backdrop-filter: blur(16px) saturate(0.9);
+}
+
+.novaryn-orbit-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.novaryn-orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.spoke-outer {
+  stroke-width: 1;
+  transition: stroke 200ms ease, stroke-opacity 200ms ease;
+}
+
+.spoke-inner {
+  transition: stroke-dashoffset 300ms ease;
+}
+
+.orbit-node {
+  transition: r 250ms ease, fill 200ms ease, opacity 250ms ease;
+}
+
+.orbit-center-node {
+  transition: r 400ms ease;
+}
+
+.menu-settled .orbit-center-node {
+  r: 0 !important;
+}
+
+/* Center Circular Preview */
+.novaryn-preview-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: #e9eae3;
+  overflow: hidden;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 700ms cubic-bezier(.16, 1, .3, 1) 1.05s;
+  z-index: 4;
+}
+
+.novaryn-orbit-overlay.open .novaryn-preview-circle {
+  clip-path: circle(50% at 50% 50%);
+}
+
+.preview-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.preview-layer.p0 { background: linear-gradient(135deg, #1c2438 0%, #0d121d 100%); }
+.preview-layer.p1 { background: linear-gradient(135deg, #2b1f47 0%, #110d1e 100%); }
+.preview-layer.p2 { background: linear-gradient(135deg, #133a36 0%, #061715 100%); }
+.preview-layer.p3 { background: linear-gradient(135deg, #3d2f1e 0%, #19120a 100%); }
+.preview-layer.p4 { background: linear-gradient(135deg, #382434 0%, #140b12 100%); }
+.preview-layer.p5 { background: linear-gradient(135deg, #223438 0%, #0c1417 100%); }
+
+.preview-layer.show {
+  opacity: 1;
+}
+
+/* Destination Links */
+.orbit-link {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  text-decoration: none;
+  color: var(--novaryn-ink);
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  opacity: 0;
+  filter: blur(8px);
+  transition: opacity 500ms ease, filter 500ms ease, color 200ms ease;
+}
+
+.novaryn-orbit-overlay.open .orbit-link {
+  opacity: 1;
+  filter: blur(0px);
+}
+
+.dest-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  opacity: 0.7;
+}
+
+.dest-title {
+  font-size: clamp(20px, 2.4vw, 36px);
+  font-weight: 350;
+  letter-spacing: -0.025em;
+  line-height: 1;
+}
+
+/* Hover effects */
+.novaryn-orbit-stage.has-hover .orbit-link:not(.is-hover) {
+  opacity: 0.38 !important;
+}
+
+.novaryn-orbit-stage.has-hover .orbit-node:not(.hovered-node) {
+  opacity: 0.38 !important;
+}
+
+.orbit-link.is-hover {
+  color: var(--novaryn-accent);
+}
+
+/* Lower-Left Caption */
+.novaryn-menu-caption {
+  position: absolute;
+  bottom: 36px;
+  left: 36px;
+  z-index: 25;
+  opacity: 0;
+  transition: opacity 500ms ease 1.2s;
+}
+
+.novaryn-orbit-overlay.open .novaryn-menu-caption {
+  opacity: 1;
+}
+
+.caption-count {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #71716b;
+  margin-bottom: 4px;
+}
+
+.caption-sub {
+  font-size: 12px;
+  color: var(--novaryn-ink);
+}
+
+/* =========================================================================
+   TABLET & MOBILE BREAKPOINTS
+   ========================================================================= */
+@media (max-width: 959.98px), (max-height: 599.98px), (orientation: portrait) {
+  :root {
+    --u: clamp(0.85px, 100vw / 1280, 1px);
+    --gx: clamp(20px, 2.6vw, 28px);
+    --gc: clamp(40px, 6.5vw, 72px);
+  }
+
+  .novaryn-hairline {
+    display: none;
+  }
+
+  .novaryn-top-band {
+    height: auto;
+    min-height: 36svh;
+    padding: var(--gx);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    column-gap: var(--gc);
+    row-gap: 20px;
+  }
+
+  .novaryn-logo {
+    position: static;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .novaryn-menu-btn {
+    position: static;
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .novaryn-cta-pill {
+    position: static;
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
+    height: 38px;
+    padding: 0 18px;
+  }
+
+  .novaryn-headline {
+    position: static;
+    grid-column: 1;
+    grid-row: 3;
+    font-size: clamp(30px, calc((50vw - var(--gx) - var(--gc) / 2) / 7.3 * 10), 80px);
+    line-height: 0.9655;
+    white-space: normal;
+  }
+
+  .novaryn-lead {
+    position: static;
+    grid-column: 2;
+    grid-row: 3;
+    width: 100%;
+    max-width: 30em;
+    padding-left: 14px;
+    font-size: clamp(15px, 0.55vw + 12px, 18px);
+    line-height: 1.42;
+  }
+
+  .novaryn-lead .lead-row {
+    white-space: normal;
+    display: inline;
+  }
+
+  .novaryn-stage {
+    margin: 0 var(--gx);
+    width: calc(100% - 2 * var(--gx));
+    height: 48svh;
+  }
+}
+
+@media (max-width: 679.98px) {
+  :root {
+    --gx: 20px;
+  }
+
+  .novaryn-top-band {
+    min-height: 44svh;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto auto;
+    row-gap: 16px;
+  }
+
+  .novaryn-headline {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    font-size: clamp(28px, calc((100vw - 40px) / 7.3 * 10), 48px);
+  }
+
+  .novaryn-lead {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    font-size: 15px;
+    max-width: 32em;
+  }
+
+  .novaryn-cta-pill {
+    grid-column: 2;
+    grid-row: 4;
+  }
+
+  .novaryn-stage {
+    height: 42svh;
+  }
+
+  .novaryn-news-bar {
+    inset: auto 12px 12px 12px;
+    width: auto;
+    transform: none;
+    padding: 10px 8px 10px 14px;
+    gap: 12px;
+    border-radius: 8px;
+  }
+
+  .novaryn-preview-circle,
+  .novaryn-orbit-svg,
+  .novaryn-menu-caption {
+    display: none !important;
+  }
+
+  .novaryn-orbit-stage {
+    padding: 100px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .orbit-link {
+    position: static !important;
+    transform: none !important;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .dest-title {
+    font-size: clamp(24px, 7vw, 32px);
+  }
+}
+

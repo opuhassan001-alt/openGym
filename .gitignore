@@ -2,6 +2,7 @@
 # old folder never gets committed by accident
 media/img/
 media/gif/
+video/
 
 # Runtime data — users, passkeys, per-user state, session secret
 data/
@@ -18,6 +19,7 @@ node_modules
 .claude/
 .agents/
 .superpowers/
+.kombai/
 
 # Nix build result symlinks
 result
@@ -34,4 +36,8 @@ docs/superpowers/plans/
 # Temporary scratch, character cache, and verification screenshots
 .playwright-mcp/
 raw_chars_cache/
+github_extracted/
+repo_master.zip
 /*.png
+opuhassan001-alt-openGym-*/
+*.zip

@@ -4,37 +4,28 @@ import { TextRepel } from './ui/text-repel.jsx';
 
 interface CharacterSlide {
   src: string;
-  fallbackSrc: string;
   bg: string;
   panel: string;
 }
 
 const IMAGES: CharacterSlide[] = [
   {
-    src: '/characters/char1.png?v=fixed2',
-    fallbackSrc:
-      'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/1.02464a56.png',
+    src: '/characters/char1.png?v=authentic_clean_v5',
     bg: '#F4845F',
     panel: '#F79B7F',
   },
   {
-    src: '/characters/char2.png?v=fixed2',
-    fallbackSrc:
-      'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/2.b977faab.png',
+    src: '/characters/char2.png?v=authentic_clean_v5',
     bg: '#6BBF7A',
     panel: '#85CC92',
   },
   {
-    src: '/characters/char3.png?v=fixed2',
-    fallbackSrc:
-      'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/3.4df853b4.png',
+    src: '/characters/char3.png?v=authentic_clean_v5',
     bg: '#E882B4',
     panel: '#ED9DC4',
   },
   {
-    src: '/characters/char4.png?v=fixed2',
-    fallbackSrc:
-      'https://fifth-gentle-45902158.figma.site/_components/v2/4de492f6d9cf8244ad5293233e5c6f52407d42fc/4.4457fbce.png',
+    src: '/characters/char4.png?v=authentic_clean_v5',
     bg: '#6EB5FF',
     panel: '#8DC4FF',
   },
@@ -233,11 +224,6 @@ export default function OpenGymHero() {
               >
                 <img
                   src={item.src}
-                  onError={(e) => {
-                    if (e.currentTarget.src !== item.fallbackSrc) {
-                      e.currentTarget.src = item.fallbackSrc;
-                    }
-                  }}
                   alt={`Open Gym Character ${index + 1}`}
                   draggable={false}
                   style={{
