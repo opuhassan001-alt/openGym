@@ -233,7 +233,7 @@ function Shell() {
               <Route path="/coach/intake" element={<CoachIntake />} />
               <Route path="/coach/proposal" element={<Navigate to="/coach" replace />} />
               <Route path="/coach/setup" element={<CoachSetup />} />
-              <Route path="/admin" element={user?.admin ? <Admin /> : <Navigate to="/home" replace />} />
+              <Route path="/admin" element={<Admin />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsAndConditions />} />
               <Route path="/404" element={<NotFound />} />

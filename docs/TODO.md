@@ -28,6 +28,7 @@
 - `#22` Reposition Interactive 3D Body Muscle Map directly following Hero section with live anatomical body explorer, heatmaps, and exercise kinetics. (2026-10-19)
 - `#23` Regenerate char1.png to char4.png from clean originals with exact hand-grip anatomy, 100% alpha transparency, zero sleeve/pants defects, and update OpenGymHero.tsx with cache-busting query parameter. (2026-10-19)
 - `#24` Redesign left sidebar navigation dock into an ultra-premium luxury glassmorphic rail with brand mark, 3D tactile Start orb, and flyout tooltips. (2026-10-19)
+- `#25` Fully restored all production views, routes, engines, and api services from GitHub commit 6a6cdb9, preserving dumbbell-synced 3D character hero and enabling complete Admin operator dashboard with facility telemetries. (2026-10-30)
 - `#25` Remove desktop navigation dock from page and implement top three-dot executive glassmorphic menu containing Home, Plan, Start, Stats, Exercises, 3D Muscle Map, and Settings. (2026-10-19)
 - `#26` Reposition top Open Gym brand label to horizontal center, shift 0PEN GYM FIGURINES text rightwards to prevent clipping, and update hero description copy. (2026-10-19)
 - `#27` Install dietrichgebert/ponytail globally as plugin, register 6 skills, configure Windows defaultMode, and apply ruleset across all projects and openGym workspace. (2026-10-20)

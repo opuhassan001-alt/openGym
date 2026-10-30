@@ -22,6 +22,7 @@
     "@capacitor/local-notifications": "^7.0.7",
     "@capacitor/share": "^7.0.4",
     "@radix-ui/react-slot": "^1.5.0",
+    "@rolldown/binding-win32-x64-msvc": "^1.2.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^14.3.0",
@@ -35,8 +36,8 @@
     "react-router-dom": "^7.18.2",
     "tailwind-merge": "^3.7.0",
     "three": "^0.186.1",
-    "zustand": "^5.0.14",
-    "zod": "^3.23.8"
+    "zod": "^4.6.7",
+    "zustand": "^5.0.14"
   },
   "devDependencies": {
     "@capacitor/android": "^7.6.8",
